@@ -1,0 +1,117 @@
+/* ============================================================
+   @stellify/ui — shadcn.css (DEFAULT)
+   Mirrors the Laravel starter kit's shadcn palette.
+   Defines both layers:
+     1. Shadcn HSL primitives (--background, --foreground, etc.)
+        so Tailwind classes like `bg-background` keep working.
+     2. Stellify semantic tokens (--sk-bg-canvas, --sk-fg-primary…)
+        that our Web Components consume.
+   The two layers stay in lockstep.
+   ============================================================ */
+
+:root {
+  /* ----- shadcn primitives (HSL parts) ----- */
+  --background:                  0 0% 100%;
+  --foreground:                  240 10% 3.9%;
+  --card:                        0 0% 100%;
+  --card-foreground:             240 10% 3.9%;
+  --popover:                     0 0% 100%;
+  --popover-foreground:          240 10% 3.9%;
+  --primary:                     240 5.9% 10%;
+  --primary-foreground:          0 0% 98%;
+  --secondary:                   240 4.8% 95.9%;
+  --secondary-foreground:        240 5.9% 10%;
+  --muted:                       240 4.8% 95.9%;
+  --muted-foreground:            240 3.8% 46.1%;
+  --accent:                      240 4.8% 95.9%;
+  --accent-foreground:           240 5.9% 10%;
+  --destructive:                 0 72.2% 50.6%;
+  --destructive-foreground:      0 0% 98%;
+  --border:                      240 5.9% 90%;
+  --input:                       240 5.9% 90%;
+  --ring:                        240 5.9% 10%;
+
+  /* Sidebar primitives */
+  --sidebar-background:          0 0% 98%;
+  --sidebar-foreground:          240 5.3% 26.1%;
+  --sidebar-primary:             240 5.9% 10%;
+  --sidebar-primary-foreground:  0 0% 98%;
+  --sidebar-accent:              240 4.8% 95.9%;
+  --sidebar-accent-foreground:   240 5.9% 10%;
+  --sidebar-border:              220 13% 91%;
+  --sidebar-ring:                240 5.9% 10%;
+
+  /* ----- Stellify semantic tokens (map to primitives) ----- */
+  --sk-bg-canvas:        hsl(var(--background));
+  --sk-bg-surface:       hsl(var(--card));
+  --sk-bg-rail:          hsl(var(--sidebar-background));
+  --sk-bg-rail-edge:     hsl(var(--sidebar-border));
+  --sk-bg-selected:      hsl(var(--sidebar-accent));
+  --sk-bg-hover:         hsl(var(--accent));
+  --sk-bg-pressed:       hsl(var(--secondary));
+
+  --sk-fg-primary:       hsl(var(--foreground));
+  --sk-fg-secondary:     hsl(var(--sidebar-foreground));
+  --sk-fg-tertiary:      hsl(var(--muted-foreground));
+  --sk-fg-quaternary:    hsl(var(--muted-foreground) / 0.6);
+  --sk-fg-on-accent:     hsl(var(--primary-foreground));
+
+  --sk-action:           hsl(var(--primary));
+  --sk-action-fg:        hsl(var(--primary-foreground));
+  --sk-action-rule:      hsl(var(--primary));
+  --sk-positive:         hsl(142 71% 35%);
+  --sk-negative:         hsl(var(--destructive));
+
+  --sk-rule:             hsl(var(--border));
+  --sk-rule-subtle:      hsl(var(--border) / 0.6);
+  --sk-rule-faint:       hsl(var(--border) / 0.35);
+
+  --sk-focus-ring:       hsl(var(--ring) / 0.3);
+
+  /* Typography — shadcn defaults to system stack */
+  --sk-font-display:     ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  --sk-font-ui:          ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  --sk-font-mono:        ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, monospace;
+}
+
+/* ----- Dark mode ----- */
+@media (prefers-color-scheme: dark) {
+  :root {
+    --background:                  240 10% 3.9%;
+    --foreground:                  0 0% 98%;
+    --card:                        240 10% 3.9%;
+    --card-foreground:             0 0% 98%;
+    --popover:                     240 10% 3.9%;
+    --popover-foreground:          0 0% 98%;
+    --primary:                     0 0% 98%;
+    --primary-foreground:          240 5.9% 10%;
+    --secondary:                   240 3.7% 15.9%;
+    --secondary-foreground:        0 0% 98%;
+    --muted:                       240 3.7% 15.9%;
+    --muted-foreground:            240 5% 64.9%;
+    --accent:                      240 3.7% 15.9%;
+    --accent-foreground:           0 0% 98%;
+    --destructive:                 0 62.8% 30.6%;
+    --destructive-foreground:      0 0% 98%;
+    --border:                      240 3.7% 15.9%;
+    --input:                       240 3.7% 15.9%;
+    --ring:                        240 4.9% 83.9%;
+
+    --sidebar-background:          240 5.9% 10%;
+    --sidebar-foreground:          240 4.8% 95.9%;
+    --sidebar-primary:             224.3 76.3% 48%;
+    --sidebar-primary-foreground:  0 0% 100%;
+    --sidebar-accent:              240 3.7% 15.9%;
+    --sidebar-accent-foreground:   240 4.8% 95.9%;
+    --sidebar-border:              240 3.7% 15.9%;
+    --sidebar-ring:                240 4.9% 83.9%;
+
+    --sk-positive:                 hsl(142 60% 55%);
+    --sk-focus-ring:               hsl(var(--ring) / 0.4);
+  }
+}
+
+/* Manual dark mode override (for theme switchers) */
+:root[data-theme="dark"] {
+  color-scheme: dark;
+}

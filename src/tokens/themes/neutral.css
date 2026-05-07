@@ -1,0 +1,70 @@
+/* ============================================================
+   @stellify/ui — neutral.css (Option C)
+   Cool grays, near-black, system fonts.
+   Closest to OS-native desktop defaults. Minimal expression.
+   Use when the app provides its own brand on top.
+   ============================================================ */
+
+:root {
+  /* Stellify semantic tokens */
+  --sk-bg-canvas:        #fafafa;
+  --sk-bg-surface:       #ffffff;
+  --sk-bg-rail:          #f4f4f5;
+  --sk-bg-rail-edge:     #e4e4e7;
+  --sk-bg-selected:      rgba(0, 0, 0, 0.045);
+  --sk-bg-hover:         rgba(0, 0, 0, 0.03);
+  --sk-bg-pressed:       rgba(0, 0, 0, 0.07);
+
+  --sk-fg-primary:       #18181b;
+  --sk-fg-secondary:     #3f3f46;
+  --sk-fg-tertiary:      #71717a;
+  --sk-fg-quaternary:    #a1a1aa;
+  --sk-fg-on-accent:     #fafafa;
+
+  --sk-action:           #18181b;
+  --sk-action-fg:        #fafafa;
+  --sk-action-rule:      #18181b;
+  --sk-positive:         #16a34a;
+  --sk-negative:         #dc2626;
+
+  --sk-rule:             #e4e4e7;
+  --sk-rule-subtle:      #ededee;
+  --sk-rule-faint:       #f4f4f5;
+
+  --sk-focus-ring:       rgba(24, 24, 27, 0.25);
+
+  /* Typography — system stack, no web fonts */
+  --sk-font-display:     -apple-system, BlinkMacSystemFont, "Segoe UI", system-ui, sans-serif;
+  --sk-font-ui:          -apple-system, BlinkMacSystemFont, "Segoe UI", system-ui, sans-serif;
+  --sk-font-mono:        ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, monospace;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --sk-bg-canvas:        #09090b;
+    --sk-bg-surface:       #18181b;
+    --sk-bg-rail:          #09090b;
+    --sk-bg-rail-edge:     #27272a;
+    --sk-bg-selected:      rgba(255, 255, 255, 0.06);
+    --sk-bg-hover:         rgba(255, 255, 255, 0.035);
+    --sk-bg-pressed:       rgba(255, 255, 255, 0.09);
+
+    --sk-fg-primary:       #fafafa;
+    --sk-fg-secondary:     #d4d4d8;
+    --sk-fg-tertiary:      #a1a1aa;
+    --sk-fg-quaternary:    #52525b;
+    --sk-fg-on-accent:     #18181b;
+
+    --sk-action:           #fafafa;
+    --sk-action-fg:        #18181b;
+    --sk-action-rule:      #fafafa;
+    --sk-positive:         #4ade80;
+    --sk-negative:         #f87171;
+
+    --sk-rule:             #27272a;
+    --sk-rule-subtle:      #1f1f22;
+    --sk-rule-faint:       #18181b;
+
+    --sk-focus-ring:       rgba(250, 250, 250, 0.3);
+  }
+}

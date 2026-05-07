@@ -1,0 +1,59 @@
+/* ============================================================
+   @stellify/ui — base.css
+   Structural tokens shared across all themes.
+   Themes only override colour and font-family tokens.
+   ============================================================ */
+
+:root {
+  /* ----- Spacing — 4px baseline grid ----- */
+  --sk-u: 4px;
+  --sk-s-1: 4px;
+  --sk-s-2: 8px;
+  --sk-s-3: 12px;
+  --sk-s-4: 16px;
+  --sk-s-5: 24px;
+  --sk-s-6: 32px;
+  --sk-s-7: 48px;
+  --sk-s-8: 64px;
+
+  /* ----- Type scale ----- */
+  --sk-type-display: clamp(32px, 4.4vw, 44px);
+  --sk-type-h1: 28px;
+  --sk-type-h2: 18px;
+  --sk-type-body: 13.5px;
+  --sk-type-ui: 13px;
+  --sk-type-small: 12px;
+  --sk-type-micro: 10.5px;
+
+  /* ----- Motion ----- */
+  --sk-d-quick: 120ms;
+  --sk-d-base: 200ms;
+  --sk-d-slow: 320ms;
+  --sk-ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+  --sk-ease-soft: cubic-bezier(0.32, 0.72, 0.4, 1);
+
+  /* ----- Radii ----- */
+  --sk-r-1: 4px;
+  --sk-r-2: 6px;
+  --sk-r-3: 8px;
+  --sk-r-4: 12px;
+
+  /* ----- Sidebar metrics ----- */
+  --sk-sidebar-w-expanded: 248px;
+  --sk-sidebar-w-rail: 60px;
+  --sk-sidebar-w: var(--sk-sidebar-w-expanded);
+}
+
+/* When the primary sidebar is in rail mode, the layout collapses */
+:root:has(sk-sidebar[data-state="rail"]) {
+  --sk-sidebar-w: var(--sk-sidebar-w-rail);
+}
+
+/* Reduced-motion: tighten transitions everywhere */
+@media (prefers-reduced-motion: reduce) {
+  :root {
+    --sk-d-quick: 0.01ms;
+    --sk-d-base: 0.01ms;
+    --sk-d-slow: 0.01ms;
+  }
+}

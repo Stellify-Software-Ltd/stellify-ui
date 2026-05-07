@@ -1,0 +1,69 @@
+/* ============================================================
+   @stellify/ui — editorial.css (Option A)
+   Warm-paper neutral, Fraunces display + Geist UI.
+   For products with content-led, considered aesthetic.
+   ============================================================ */
+
+:root {
+  /* Stellify semantic tokens */
+  --sk-bg-canvas:        #f5f1e8;
+  --sk-bg-surface:       #ffffff;
+  --sk-bg-rail:          #ede7d8;
+  --sk-bg-rail-edge:     #d8d2c2;
+  --sk-bg-selected:      rgba(26, 22, 18, 0.055);
+  --sk-bg-hover:         rgba(26, 22, 18, 0.035);
+  --sk-bg-pressed:       rgba(26, 22, 18, 0.085);
+
+  --sk-fg-primary:       #1a1612;
+  --sk-fg-secondary:     #4a443a;
+  --sk-fg-tertiary:      #8a8276;
+  --sk-fg-quaternary:    #b3ac9a;
+  --sk-fg-on-accent:     #f5f1e8;
+
+  --sk-action:           #1a1612;
+  --sk-action-fg:        #f5f1e8;
+  --sk-action-rule:      #1a1612;
+  --sk-positive:         #3d6b3d;
+  --sk-negative:         #8a3a1f;
+
+  --sk-rule:             #d8d2c2;
+  --sk-rule-subtle:      #e8e2d2;
+  --sk-rule-faint:       #efe9d9;
+
+  --sk-focus-ring:       rgba(26, 22, 18, 0.22);
+
+  /* Typography */
+  --sk-font-display:     'Fraunces', Georgia, serif;
+  --sk-font-ui:          'Geist', -apple-system, BlinkMacSystemFont, sans-serif;
+  --sk-font-mono:        'Geist Mono', ui-monospace, monospace;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --sk-bg-canvas:        #14110d;
+    --sk-bg-surface:       #1a1612;
+    --sk-bg-rail:          #0e0c08;
+    --sk-bg-rail-edge:     #2a241c;
+    --sk-bg-selected:      rgba(240, 235, 223, 0.08);
+    --sk-bg-hover:         rgba(240, 235, 223, 0.04);
+    --sk-bg-pressed:       rgba(240, 235, 223, 0.12);
+
+    --sk-fg-primary:       #f0ebdf;
+    --sk-fg-secondary:     #c4bda8;
+    --sk-fg-tertiary:      #807868;
+    --sk-fg-quaternary:    #524c40;
+    --sk-fg-on-accent:     #14110d;
+
+    --sk-action:           #f0ebdf;
+    --sk-action-fg:        #14110d;
+    --sk-action-rule:      #f0ebdf;
+    --sk-positive:         #92c992;
+    --sk-negative:         #c47a5a;
+
+    --sk-rule:             #2a241c;
+    --sk-rule-subtle:      #1f1a14;
+    --sk-rule-faint:       #181410;
+
+    --sk-focus-ring:       rgba(240, 235, 223, 0.28);
+  }
+}
