@@ -57,3 +57,27 @@
     --sk-d-slow: 0.01ms;
   }
 }
+
+/* ============================================================
+   Submit-button loading state.
+   Toggle visibility of [data-loading-icon], [data-label-default],
+   and [data-label-loading] children based on the [loading]
+   attribute that <sk-form> sets on the submit button.
+   ============================================================ */
+
+button [data-loading-icon],
+button [data-label-loading] {
+  display: none;
+}
+button[loading] [data-loading-icon] {
+  display: inline-block;
+}
+button[loading] [data-label-loading] {
+  display: inline;
+}
+button[loading] [data-label-default] {
+  display: none;
+}
+button[loading] {
+  opacity: 0.7;
+}

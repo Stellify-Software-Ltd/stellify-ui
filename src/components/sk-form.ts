@@ -107,9 +107,11 @@ export class SkForm extends HTMLElement {
     if (message) {
       this._alert.textContent = message
       this._alert.setAttribute('active', '')
+      this._alert.style.removeProperty('display')
     } else {
       this._alert.removeAttribute('active')
       this._alert.textContent = ''
+      this._alert.style.display = 'none'
     }
   }
 

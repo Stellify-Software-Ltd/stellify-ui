@@ -38,32 +38,30 @@
   --sk-font-mono:        'Geist Mono', ui-monospace, monospace;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --sk-bg-canvas:        #14110d;
-    --sk-bg-surface:       #1a1612;
-    --sk-bg-rail:          #0e0c08;
-    --sk-bg-rail-edge:     #2a241c;
-    --sk-bg-selected:      rgba(240, 235, 223, 0.08);
-    --sk-bg-hover:         rgba(240, 235, 223, 0.04);
-    --sk-bg-pressed:       rgba(240, 235, 223, 0.12);
+.dark {
+  --sk-bg-canvas:        #14110d;
+  --sk-bg-surface:       #1a1612;
+  --sk-bg-rail:          #0e0c08;
+  --sk-bg-rail-edge:     #2a241c;
+  --sk-bg-selected:      rgba(240, 235, 223, 0.08);
+  --sk-bg-hover:         rgba(240, 235, 223, 0.04);
+  --sk-bg-pressed:       rgba(240, 235, 223, 0.12);
 
-    --sk-fg-primary:       #f0ebdf;
-    --sk-fg-secondary:     #c4bda8;
-    --sk-fg-tertiary:      #807868;
-    --sk-fg-quaternary:    #524c40;
-    --sk-fg-on-accent:     #14110d;
+  --sk-fg-primary:       #f0ebdf;
+  --sk-fg-secondary:     #c4bda8;
+  --sk-fg-tertiary:      #807868;
+  --sk-fg-quaternary:    #524c40;
+  --sk-fg-on-accent:     #14110d;
 
-    --sk-action:           #f0ebdf;
-    --sk-action-fg:        #14110d;
-    --sk-action-rule:      #f0ebdf;
-    --sk-positive:         #92c992;
-    --sk-negative:         #c47a5a;
+  --sk-action:           #f0ebdf;
+  --sk-action-fg:        #14110d;
+  --sk-action-rule:      #f0ebdf;
+  --sk-positive:         #92c992;
+  --sk-negative:         #c47a5a;
 
-    --sk-rule:             #2a241c;
-    --sk-rule-subtle:      #1f1a14;
-    --sk-rule-faint:       #181410;
+  --sk-rule:             #2a241c;
+  --sk-rule-subtle:      #1f1a14;
+  --sk-rule-faint:       #181410;
 
-    --sk-focus-ring:       rgba(240, 235, 223, 0.28);
-  }
+  --sk-focus-ring:       rgba(240, 235, 223, 0.28);
 }
