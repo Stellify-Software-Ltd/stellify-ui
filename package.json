@@ -1,5 +1,5 @@
 {
-  "name": "@stellify/ui",
+  "name": "@stellisoft/stellify-ui",
   "version": "0.1.0",
   "description": "Web Component primitives and design tokens for Stellify-rendered apps",
   "type": "module",
