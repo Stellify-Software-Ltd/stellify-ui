@@ -55,6 +55,65 @@ All three share `base.css` for structural tokens (spacing, radii, motion, typogr
 
 More components ship as Stellify's surface area grows. The architecture supports `<sk-dialog>`, `<sk-toggle>`, `<sk-dropdown>`, `<sk-table>` etc. on the same model.
 
+## Laravel Blade integration
+
+`<sk-field>` works with Laravel's `@error` directive out of the box.
+Server-rendered errors take precedence on first render; client-side
+validation takes over the moment the user interacts with the field.
+
+```blade
+<sk-field class="grid gap-2">
+  <label for="email">Email address</label>
+  <input
+    id="email"
+    name="email"
+    type="email"
+    value="{{ old('email') }}"
+    required
+    @error('email') aria-invalid="true" @enderror
+    class="...">
+
+  <div data-error
+       @error('email') data-server-error @else style="display: none;" @enderror>
+    <p>@error('email'){{ $message }}@enderror</p>
+  </div>
+</sk-field>
+```
+
+The `data-server-error` marker tells `<sk-field>` that the error is
+authoritative and should persist until the user interacts. After that,
+the component's normal input/blur lifecycle takes over.
+
+### Two patterns for server errors
+
+**Full-page reload (traditional Laravel forms):** Let Blade render errors
+directly into `data-server-error` containers as shown above. The component
+detects the marker on mount — no JavaScript required.
+
+**Fetch-based submission (no page reload):** Use `<sk-form>`'s
+`setServerErrors()` method instead. It accepts Laravel's native 422
+response shape:
+
+```js
+const skForm = document.querySelector('sk-form')
+const form = skForm.querySelector('form')
+
+form.addEventListener('submit', async (e) => {
+  e.preventDefault()
+  const res = await fetch(form.action, {
+    method: 'POST',
+    body: new FormData(form),
+    headers: { 'Accept': 'application/json' }
+  })
+  if (res.status === 422) {
+    const { errors } = await res.json()
+    skForm.setServerErrors(errors)
+  } else if (res.ok) {
+    window.location = '/dashboard'
+  }
+})
+```
+
 ## Build
 
 ```bash

@@ -11,6 +11,9 @@
  *   - Toggles aria-invalid on the inner input so existing
  *     Tailwind/shadcn aria-invalid: classes light up
  *   - Optional password-reveal button (any [data-reveal] inside)
+ *   - Respects server-rendered errors marked with [data-server-error]:
+ *     leaves them visible on mount, clears them when the user starts
+ *     typing, hands off to client-side validation thereafter.
  *
  * v0.1 ships with built-in validation rules (required / email /
  * minlength). v0.2 will accept a StellifyJS Form instance via
@@ -49,6 +52,13 @@ export class SkField extends HTMLElement {
       this.querySelector<HTMLElement>('div[style*="display: none"]')
     this._errorText = this._errorBox?.querySelector('p') ?? null
     this._revealBtn = this.querySelector('[data-reveal]')
+
+    // If Blade (or any server) rendered a pre-existing error, mark the
+    // field as touched so the existing input/blur handlers behave
+    // correctly. The error stays visible until the user interacts.
+    if (this._errorBox?.hasAttribute('data-server-error')) {
+      this._touched = true
+    }
   }
 
   // ---------- Wire events --------------------------------------------------
@@ -141,10 +151,6 @@ export class SkField extends HTMLElement {
     }
     if (minLength > 0 && value && value.length < minLength) {
       this._setError(`Must be at least ${minLength} characters.`)
-      return false
-    }
-    if (type === 'password' && value && value.length < 8 && minLength === 0) {
-      this._setError('Password must be at least 8 characters.')
       return false
     }
     this._setError('')
