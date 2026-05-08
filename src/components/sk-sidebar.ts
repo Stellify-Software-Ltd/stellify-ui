@@ -23,7 +23,7 @@ export class SkSidebar extends HTMLElement {
   private _toggleBtn: HTMLElement | null = null
   private _tooltipScope: TooltipScope | null = null
 
-  override connectedCallback() {
+  connectedCallback() {
     if (this._mounted) return
     this._mounted = true
 
@@ -35,7 +35,7 @@ export class SkSidebar extends HTMLElement {
     this._initTooltips()
   }
 
-  override disconnectedCallback() {
+  disconnectedCallback() {
     this._cleanups.forEach((fn) => fn())
     this._cleanups = []
     this._tooltipScope?.detach()

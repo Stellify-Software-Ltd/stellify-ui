@@ -19,7 +19,7 @@ export class SkCheckbox extends HTMLElement {
     return ['checked', 'disabled']
   }
 
-  override connectedCallback() {
+  connectedCallback() {
     if (this._mounted) return
     this._mounted = true
 
@@ -49,12 +49,12 @@ export class SkCheckbox extends HTMLElement {
     this.addEventListener('keydown', this._onKey)
   }
 
-  override disconnectedCallback() {
+  disconnectedCallback() {
     this.removeEventListener('click', this._onClick)
     this.removeEventListener('keydown', this._onKey)
   }
 
-  override attributeChangedCallback(name: string, _old: string | null, value: string | null) {
+  attributeChangedCallback(name: string, _old: string | null, value: string | null) {
     if (name === 'checked') {
       const isChecked = value !== null
       this.setAttribute('aria-checked', isChecked ? 'true' : 'false')

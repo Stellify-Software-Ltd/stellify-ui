@@ -27,14 +27,14 @@ export class SkForm extends HTMLElement {
   private _alert: HTMLElement | null = null
   private _cleanups: Array<() => void> = []
 
-  override connectedCallback() {
+  connectedCallback() {
     if (this._mounted) return
     this._mounted = true
     // Wait for child custom elements to upgrade
     queueMicrotask(() => this._init())
   }
 
-  override disconnectedCallback() {
+  disconnectedCallback() {
     this._cleanups.forEach((fn) => fn())
     this._cleanups = []
     this._mounted = false

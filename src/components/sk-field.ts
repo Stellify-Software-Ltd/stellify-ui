@@ -20,6 +20,10 @@
  * .bindTo(form) for full validation rule integration.
  */
 export class SkField extends HTMLElement {
+  static get observedAttributes() {
+    return ['error']
+  }
+
   private _mounted = false
   private _input: HTMLInputElement | null = null
   private _label: HTMLLabelElement | null = null
@@ -29,17 +33,28 @@ export class SkField extends HTMLElement {
   private _touched = false
   private _cleanups: Array<() => void> = []
 
-  override connectedCallback() {
+  connectedCallback() {
     if (this._mounted) return
     this._mounted = true
 
     this._discover()
     this._wire()
+    this._renderServerError(this.getAttribute('error'))
   }
 
-  override disconnectedCallback() {
+  disconnectedCallback() {
     this._cleanups.forEach((fn) => fn())
     this._cleanups = []
+  }
+
+  attributeChangedCallback(
+    name: string,
+    _oldVal: string | null,
+    newVal: string | null,
+  ) {
+    if (name === 'error') {
+      this._renderServerError(newVal)
+    }
   }
 
   // ---------- Discover children -------------------------------------------
@@ -127,6 +142,50 @@ export class SkField extends HTMLElement {
   }
 
   // ---------- Internal -----------------------------------------------------
+
+  private _renderServerError(message: string | null) {
+    const input = this.querySelector<
+      HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement
+    >('input, textarea, select')
+    let errorBox = this.querySelector<HTMLElement>('[data-error]')
+
+    if (message) {
+      if (input) {
+        input.setAttribute('aria-invalid', 'true')
+      }
+
+      if (!errorBox) {
+        errorBox = document.createElement('div')
+        errorBox.setAttribute('data-error', '')
+        const p = document.createElement('p')
+        p.className = 'text-sm text-red-600 dark:text-red-500'
+        errorBox.appendChild(p)
+        this.appendChild(errorBox)
+      }
+
+      const errorText = errorBox.querySelector('p')
+      if (errorText) {
+        errorText.textContent = message
+      }
+
+      errorBox.removeAttribute('hidden')
+      this._touched = true
+
+      // Update cached references if we created a new error box
+      if (!this._errorBox) {
+        this._errorBox = errorBox
+        this._errorText = errorBox.querySelector('p')
+      }
+    } else {
+      if (input) {
+        input.removeAttribute('aria-invalid')
+      }
+
+      if (errorBox) {
+        errorBox.setAttribute('hidden', '')
+      }
+    }
+  }
 
   private _validateLocal(): boolean {
     if (!this._input) return true

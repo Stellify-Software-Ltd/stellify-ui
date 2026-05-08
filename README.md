@@ -61,28 +61,39 @@ More components ship as Stellify's surface area grows. The architecture supports
 Server-rendered errors take precedence on first render; client-side
 validation takes over the moment the user interacts with the field.
 
-```blade
-<sk-field class="grid gap-2">
-  <label for="email">Email address</label>
-  <input
-    id="email"
-    name="email"
-    type="email"
-    value="{{ old('email') }}"
-    required
-    @error('email') aria-invalid="true" @enderror
-    class="...">
+### Server-rendered errors
 
-  <div data-error
-       @error('email') data-server-error @else style="display: none;" @enderror>
-    <p>@error('email'){{ $message }}@enderror</p>
-  </div>
+**Recommended (attribute):**
+
+```blade
+<sk-field error="{{ $errors->first('email') }}" class="grid gap-2">
+  <label for="email">Email address</label>
+  <input id="email" name="email" type="email" required>
 </sk-field>
 ```
 
-The `data-server-error` marker tells `<sk-field>` that the error is
-authoritative and should persist until the user interacts. After that,
-the component's normal input/blur lifecycle takes over.
+The `error` attribute is the simplest way to pass server errors. The component
+creates the error markup automatically and sets `aria-invalid` on the input.
+
+**No-JS fallback (slot):**
+
+```blade
+<sk-field class="grid gap-2">
+  <label for="email">Email address</label>
+  <input id="email" name="email" type="email" required
+         @error('email') aria-invalid="true" @enderror>
+  @error('email')
+    <div data-error data-server-error>
+      <p class="text-sm text-red-600 dark:text-red-500">{{ $message }}</p>
+    </div>
+  @enderror
+</sk-field>
+```
+
+The slot pattern renders the error directly in HTML, making it visible even
+before custom elements upgrade. Use this when you need errors to display
+without JavaScript. The `data-server-error` marker tells `<sk-field>` that
+the error is authoritative and should persist until the user interacts.
 
 ### Two patterns for server errors
 
