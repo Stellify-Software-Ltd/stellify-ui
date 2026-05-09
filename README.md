@@ -58,52 +58,40 @@ More components ship as Stellify's surface area grows. The architecture supports
 ## Laravel Blade integration
 
 `<sk-field>` works with Laravel's `@error` directive out of the box.
-Server-rendered errors take precedence on first render; client-side
+Server-rendered errors are the source of truth on initial load; client-side
 validation takes over the moment the user interacts with the field.
 
 ### Server-rendered errors
 
-**Recommended (attribute):**
-
-```blade
-<sk-field error="{{ $errors->first('email') }}" class="grid gap-2">
-  <label for="email">Email address</label>
-  <input id="email" name="email" type="email" required>
-</sk-field>
-```
-
-The `error` attribute is the simplest way to pass server errors. The component
-creates the error markup automatically and sets `aria-invalid` on the input.
-
-**No-JS fallback (slot):**
+`sk-field` reads its initial error state from the DOM produced by your server. There is no `error` attribute. Render the field naturally with Blade:
 
 ```blade
 <sk-field class="grid gap-2">
   <label for="email">Email address</label>
-  <input id="email" name="email" type="email" required
-         @error('email') aria-invalid="true" @enderror>
+  <input
+    id="email"
+    name="email"
+    type="email"
+    required
+    value="{{ old('email') }}"
+    @error('email') aria-invalid="true" @enderror
+  >
   @error('email')
-    <div data-error data-server-error>
-      <p class="text-sm text-red-600 dark:text-red-500">{{ $message }}</p>
-    </div>
+    <p data-error class="text-sm text-destructive">{{ $message }}</p>
   @enderror
 </sk-field>
 ```
 
-The slot pattern renders the error directly in HTML, making it visible even
-before custom elements upgrade. Use this when you need errors to display
-without JavaScript. The `data-server-error` marker tells `<sk-field>` that
-the error is authoritative and should persist until the user interacts.
+When the page renders, `sk-field` discovers the existing `<p data-error>` element (if present) and the input's `aria-invalid` attribute. If either is present, the component treats the field as touched, so subsequent client-side validation updates the error message in place rather than waiting for a fresh blur event.
 
-### Two patterns for server errors
+If there is no server error, the `<p data-error>` element is absent from the rendered HTML. When client-side validation later produces an error, the component creates the element and inserts it.
 
-**Full-page reload (traditional Laravel forms):** Let Blade render errors
-directly into `data-server-error` containers as shown above. The component
-detects the marker on mount — no JavaScript required.
+This pattern works without JavaScript: the form renders, errors display, the user can submit. JavaScript adds client-side validation and dynamic error updates on top.
 
-**Fetch-based submission (no page reload):** Use `<sk-form>`'s
-`setServerErrors()` method instead. It accepts Laravel's native 422
-response shape:
+### Fetch-based submission
+
+For forms that submit via fetch (no page reload), use `<sk-form>`'s
+`setServerErrors()` method. It accepts Laravel's native 422 response shape:
 
 ```js
 const skForm = document.querySelector('sk-form')

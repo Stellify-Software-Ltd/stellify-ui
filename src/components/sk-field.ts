@@ -6,29 +6,22 @@
  *
  *   - Validates on blur (punish on commit), clears errors on input
  *     (reward as you correct)
- *   - Drives the existing [data-error] container; doesn't render
- *     its own error UI
+ *   - Reads existing [data-error] element from server-rendered DOM
  *   - Toggles aria-invalid on the inner input so existing
  *     Tailwind/shadcn aria-invalid: classes light up
  *   - Optional password-reveal button (any [data-reveal] inside)
- *   - Respects server-rendered errors marked with [data-server-error]:
- *     leaves them visible on mount, clears them when the user starts
- *     typing, hands off to client-side validation thereafter.
+ *   - If server rendered an error (aria-invalid or [data-error] present),
+ *     treats the field as touched so client-side validation runs immediately
  *
  * v0.1 ships with built-in validation rules (required / email /
  * minlength). v0.2 will accept a StellifyJS Form instance via
  * .bindTo(form) for full validation rule integration.
  */
 export class SkField extends HTMLElement {
-  static get observedAttributes() {
-    return ['error']
-  }
-
   private _mounted = false
   private _input: HTMLInputElement | null = null
   private _label: HTMLLabelElement | null = null
-  private _errorBox: HTMLElement | null = null
-  private _errorText: HTMLElement | null = null
+  private _errorEl: HTMLElement | null = null
   private _revealBtn: HTMLElement | null = null
   private _touched = false
   private _cleanups: Array<() => void> = []
@@ -39,7 +32,6 @@ export class SkField extends HTMLElement {
 
     this._discover()
     this._wire()
-    this._renderServerError(this.getAttribute('error'))
   }
 
   disconnectedCallback() {
@@ -47,31 +39,18 @@ export class SkField extends HTMLElement {
     this._cleanups = []
   }
 
-  attributeChangedCallback(
-    name: string,
-    _oldVal: string | null,
-    newVal: string | null,
-  ) {
-    if (name === 'error') {
-      this._renderServerError(newVal)
-    }
-  }
-
   // ---------- Discover children -------------------------------------------
 
   private _discover() {
     this._input = this.querySelector('input, select, textarea') as HTMLInputElement | null
     this._label = this.querySelector('label')
-    this._errorBox =
-      this.querySelector<HTMLElement>('[data-error]') ??
-      this.querySelector<HTMLElement>('div[style*="display: none"]')
-    this._errorText = this._errorBox?.querySelector('p') ?? null
+    this._errorEl = this.querySelector<HTMLElement>('[data-error]')
     this._revealBtn = this.querySelector('[data-reveal]')
 
     // If Blade (or any server) rendered a pre-existing error, mark the
-    // field as touched so the existing input/blur handlers behave
-    // correctly. The error stays visible until the user interacts.
-    if (this._errorBox?.hasAttribute('data-server-error')) {
+    // field as touched so client-side validation runs immediately on
+    // subsequent edits rather than waiting for a blur event.
+    if (this._errorEl || this._input?.hasAttribute('aria-invalid')) {
       this._touched = true
     }
   }
@@ -82,8 +61,8 @@ export class SkField extends HTMLElement {
     if (!this._input) return
 
     const onInput = () => {
-      if (this._touched && this._errorBox?.style.display !== 'none') {
-        this._setError('')
+      if (this._touched) {
+        this._validateLocal()
       }
     }
     const onBlur = () => {
@@ -143,50 +122,6 @@ export class SkField extends HTMLElement {
 
   // ---------- Internal -----------------------------------------------------
 
-  private _renderServerError(message: string | null) {
-    const input = this.querySelector<
-      HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement
-    >('input, textarea, select')
-    let errorBox = this.querySelector<HTMLElement>('[data-error]')
-
-    if (message) {
-      if (input) {
-        input.setAttribute('aria-invalid', 'true')
-      }
-
-      if (!errorBox) {
-        errorBox = document.createElement('div')
-        errorBox.setAttribute('data-error', '')
-        const p = document.createElement('p')
-        p.className = 'text-sm text-red-600 dark:text-red-500'
-        errorBox.appendChild(p)
-        this.appendChild(errorBox)
-      }
-
-      const errorText = errorBox.querySelector('p')
-      if (errorText) {
-        errorText.textContent = message
-      }
-
-      errorBox.removeAttribute('hidden')
-      this._touched = true
-
-      // Update cached references if we created a new error box
-      if (!this._errorBox) {
-        this._errorBox = errorBox
-        this._errorText = errorBox.querySelector('p')
-      }
-    } else {
-      if (input) {
-        input.removeAttribute('aria-invalid')
-      }
-
-      if (errorBox) {
-        errorBox.setAttribute('hidden', '')
-      }
-    }
-  }
-
   private _validateLocal(): boolean {
     if (!this._input) return true
 
@@ -218,17 +153,29 @@ export class SkField extends HTMLElement {
 
   private _setError(message: string) {
     if (!this._input) return
+
     if (message) {
       this._input.setAttribute('aria-invalid', 'true')
-      if (this._errorBox) {
-        this._errorBox.style.display = ''
-        if (this._errorText) this._errorText.textContent = message
+
+      if (this._errorEl) {
+        // Update existing error element and ensure it's visible
+        this._errorEl.textContent = message
+        this._errorEl.removeAttribute('hidden')
+      } else {
+        // Create error element matching server-rendered shape
+        const errorEl = document.createElement('p')
+        errorEl.setAttribute('data-error', '')
+        errorEl.className = 'text-sm text-destructive'
+        errorEl.textContent = message
+        this.appendChild(errorEl)
+        this._errorEl = errorEl
       }
     } else {
       this._input.removeAttribute('aria-invalid')
-      if (this._errorBox) {
-        this._errorBox.style.display = 'none'
-        if (this._errorText) this._errorText.textContent = ''
+
+      if (this._errorEl) {
+        // Hide rather than remove, preserving server-rendered element
+        this._errorEl.setAttribute('hidden', '')
       }
     }
   }
