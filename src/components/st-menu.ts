@@ -9,7 +9,6 @@ type Placement =
 const openMenus = new Set<StMenu>()
 
 const supportsPopover = 'popover' in HTMLElement.prototype
-const supportsAnchor = CSS.supports('anchor-name', '--test')
 
 /**
  * <st-menu>
@@ -78,13 +77,12 @@ export class StMenu extends HTMLElement {
       this._content.showPopover()
     } else {
       this._content.removeAttribute('hidden')
-      this._positionFallback()
       this._addOutsideListeners()
     }
 
-    if (!supportsAnchor) {
-      this._positionFallback()
-    }
+    // Always use JS positioning - CSS anchor positioning requires
+    // additional CSS rules that users would need to write
+    this._positionFallback()
 
     // Focus first menu item
     const firstItem = this._getItems()[0]
@@ -171,13 +169,6 @@ export class StMenu extends HTMLElement {
     // Remove hidden attribute - popover API controls visibility
     this._content.removeAttribute('hidden')
     this._content.setAttribute('popover', 'auto')
-
-    // Set up CSS anchor positioning if supported
-    if (supportsAnchor) {
-      const anchorName = `--st-menu-anchor-${Math.random().toString(36).slice(2, 9)}`
-      this._trigger.style.setProperty('anchor-name', anchorName)
-      this._content.style.setProperty('position-anchor', anchorName)
-    }
 
     // Handle popover toggle events (covers Escape and light dismiss)
     const onToggle = (e: Event) => {
