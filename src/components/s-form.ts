@@ -1,12 +1,12 @@
-import type { SkField } from './sk-field.js'
+import type { SField } from './s-field.js'
 
 /**
- * <sk-form>
+ * <s-form>
  *
  * Wraps an existing <form> element and orchestrates client-side
  * desktop-grade behaviour around it:
  *
- *   - On submit (click or Enter), runs sk-field validation
+ *   - On submit (click or Enter), runs s-field validation
  *     synchronously across all fields. If any fail, prevents
  *     submission and focuses the first invalid field.
  *   - Reflects loading state on the submit button via [loading]
@@ -20,7 +20,7 @@ import type { SkField } from './sk-field.js'
  * v0.2 will add optional StellifyJS Form binding for richer
  * client-side validation rules and 422 response handling.
  */
-export class SkForm extends HTMLElement {
+export class SForm extends HTMLElement {
   private _mounted = false
   private _form: HTMLFormElement | null = null
   private _submitBtn: HTMLButtonElement | null = null
@@ -55,7 +55,7 @@ export class SkForm extends HTMLElement {
   // ---------- Submit handler ----------------------------------------------
 
   private _onSubmit(e: Event) {
-    const fields = [...this.querySelectorAll<SkField>('sk-field')]
+    const fields = [...this.querySelectorAll<SField>('s-field')]
 
     let allValid = true
     for (const field of fields) {
@@ -83,9 +83,9 @@ export class SkForm extends HTMLElement {
   // ---------- UI helpers ---------------------------------------------------
 
   private _focusFirstInvalid() {
-    const invalid = this.querySelector<SkField>(
-      'sk-field [aria-invalid="true"]',
-    )?.closest<SkField>('sk-field')
+    const invalid = this.querySelector<SField>(
+      's-field [aria-invalid="true"]',
+    )?.closest<SField>('s-field')
     invalid?.focus()
   }
 
@@ -119,7 +119,7 @@ export class SkForm extends HTMLElement {
 
   /** Set field-level errors from a server response. */
   setServerErrors(errors: Record<string, string[] | string>) {
-    const fields = [...this.querySelectorAll<SkField>('sk-field')]
+    const fields = [...this.querySelectorAll<SField>('s-field')]
     for (const field of fields) {
       const fieldErrors = errors[field.fieldName]
       if (fieldErrors) {
@@ -131,10 +131,10 @@ export class SkForm extends HTMLElement {
   }
 }
 
-customElements.define('sk-form', SkForm)
+customElements.define('s-form', SForm)
 
 declare global {
   interface HTMLElementTagNameMap {
-    'sk-form': SkForm
+    's-form': SForm
   }
 }

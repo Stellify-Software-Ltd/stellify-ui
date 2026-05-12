@@ -25,8 +25,8 @@ Then visit `http://localhost:3000/examples/login-form.html`.
 
 A complete login form demonstrating:
 
-- `<sk-form>` — Form validation orchestration and loading states
-- `<sk-field>` — Field-level validation (required, email format, password length)
+- `<s-form>` — Form validation orchestration and loading states
+- `<s-field>` — Field-level validation (required, email format, password length)
 - Password reveal toggle via `[data-reveal]`
 - Design tokens from the shadcn theme
 

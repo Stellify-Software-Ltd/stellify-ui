@@ -1,5 +1,5 @@
 /**
- * <sk-checkbox>
+ * <s-checkbox>
  *
  * An accessible checkbox primitive. The element itself is the
  * checkbox (button + role="checkbox" + aria-checked); a hidden
@@ -11,7 +11,7 @@
  *   - checked     — initial checked state (boolean attribute)
  *   - disabled    — disabled state
  */
-export class SkCheckbox extends HTMLElement {
+export class SCheckbox extends HTMLElement {
   private _mounted = false
   private _input: HTMLInputElement | null = null
 
@@ -105,7 +105,7 @@ export class SkCheckbox extends HTMLElement {
   private _toggle() {
     this.checked = !this.checked
     this.dispatchEvent(
-      new CustomEvent('sk-checkbox:change', {
+      new CustomEvent('s-checkbox:change', {
         detail: { checked: this.checked },
         bubbles: true,
       }),
@@ -113,10 +113,10 @@ export class SkCheckbox extends HTMLElement {
   }
 }
 
-customElements.define('sk-checkbox', SkCheckbox)
+customElements.define('s-checkbox', SCheckbox)
 
 declare global {
   interface HTMLElementTagNameMap {
-    'sk-checkbox': SkCheckbox
+    's-checkbox': SCheckbox
   }
 }

@@ -27,11 +27,11 @@ Load the bundle and one of the theme stylesheets in your layout:
 Then use the elements anywhere in your markup:
 
 ```html
-<sk-sidebar id="primary" data-state="expanded">
+<s-sidebar id="primary" data-state="expanded">
   <header class="sidebar-header">…</header>
   <nav class="sidebar-nav">…</nav>
   <footer class="sidebar-footer">…</footer>
-</sk-sidebar>
+</s-sidebar>
 
 <button aria-controls="primary">Toggle sidebar</button>
 ```
@@ -48,25 +48,25 @@ All three share `base.css` for structural tokens (spacing, radii, motion, typogr
 
 ## Components (v0.1)
 
-- `<sk-sidebar>` — collapsible navigation rail with keyboard shortcut, persistent state, tooltips
-- `<sk-form>` — form orchestrator: synchronous validation, focus management, alert state
-- `<sk-field>` — input wrapper: validates on blur, drives existing error markup
-- `<sk-checkbox>` — accessible checkbox primitive
+- `<s-sidebar>` — collapsible navigation rail with keyboard shortcut, persistent state, tooltips
+- `<s-form>` — form orchestrator: synchronous validation, focus management, alert state
+- `<s-field>` — input wrapper: validates on blur, drives existing error markup
+- `<s-checkbox>` — accessible checkbox primitive
 
-More components ship as Stellify's surface area grows. The architecture supports `<sk-dialog>`, `<sk-toggle>`, `<sk-dropdown>`, `<sk-table>` etc. on the same model.
+More components ship as Stellify's surface area grows. The architecture supports `<s-dialog>`, `<s-toggle>`, `<s-dropdown>`, `<s-table>` etc. on the same model.
 
 ## Laravel Blade integration
 
-`<sk-field>` works with Laravel's `@error` directive out of the box.
+`<s-field>` works with Laravel's `@error` directive out of the box.
 Server-rendered errors are the source of truth on initial load; client-side
 validation takes over the moment the user interacts with the field.
 
 ### Server-rendered errors
 
-`sk-field` reads its initial error state from the DOM produced by your server. There is no `error` attribute. Render the field naturally with Blade:
+`s-field` reads its initial error state from the DOM produced by your server. There is no `error` attribute. Render the field naturally with Blade:
 
 ```blade
-<sk-field class="grid gap-2">
+<s-field class="grid gap-2">
   <label for="email">Email address</label>
   <input
     id="email"
@@ -79,10 +79,10 @@ validation takes over the moment the user interacts with the field.
   @error('email')
     <p data-error class="text-sm text-destructive">{{ $message }}</p>
   @enderror
-</sk-field>
+</s-field>
 ```
 
-When the page renders, `sk-field` discovers the existing `<p data-error>` element (if present) and the input's `aria-invalid` attribute. If either is present, the component treats the field as touched, so subsequent client-side validation updates the error message in place rather than waiting for a fresh blur event.
+When the page renders, `s-field` discovers the existing `<p data-error>` element (if present) and the input's `aria-invalid` attribute. If either is present, the component treats the field as touched, so subsequent client-side validation updates the error message in place rather than waiting for a fresh blur event.
 
 If there is no server error, the `<p data-error>` element is absent from the rendered HTML. When client-side validation later produces an error, the component creates the element and inserts it.
 
@@ -90,12 +90,12 @@ This pattern works without JavaScript: the form renders, errors display, the use
 
 ### Fetch-based submission
 
-For forms that submit via fetch (no page reload), use `<sk-form>`'s
+For forms that submit via fetch (no page reload), use `<s-form>`'s
 `setServerErrors()` method. It accepts Laravel's native 422 response shape:
 
 ```js
-const skForm = document.querySelector('sk-form')
-const form = skForm.querySelector('form')
+const sForm = document.querySelector('s-form')
+const form = sForm.querySelector('form')
 
 form.addEventListener('submit', async (e) => {
   e.preventDefault()
@@ -106,7 +106,7 @@ form.addEventListener('submit', async (e) => {
   })
   if (res.status === 422) {
     const { errors } = await res.json()
-    skForm.setServerErrors(errors)
+    sForm.setServerErrors(errors)
   } else if (res.ok) {
     window.location = '/dashboard'
   }

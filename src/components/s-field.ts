@@ -1,5 +1,5 @@
 /**
- * <sk-field>
+ * <s-field>
  *
  * Wraps existing form-field markup (label + input + error container)
  * and adds desktop-grade input behaviour:
@@ -17,7 +17,7 @@
  * minlength). v0.2 will accept a StellifyJS Form instance via
  * .bindTo(form) for full validation rule integration.
  */
-export class SkField extends HTMLElement {
+export class SField extends HTMLElement {
   private _mounted = false
   private _input: HTMLInputElement | null = null
   private _label: HTMLLabelElement | null = null
@@ -181,10 +181,10 @@ export class SkField extends HTMLElement {
   }
 }
 
-customElements.define('sk-field', SkField)
+customElements.define('s-field', SField)
 
 declare global {
   interface HTMLElementTagNameMap {
-    'sk-field': SkField
+    's-field': SField
   }
 }

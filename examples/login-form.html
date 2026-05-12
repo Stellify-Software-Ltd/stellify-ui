@@ -9,7 +9,7 @@
   <link rel="stylesheet" href="../dist/tokens/base.css">
   <link rel="stylesheet" href="../dist/tokens/themes/shadcn.css">
 
-  <!-- Web Components (registers <sk-form>, <sk-field>, etc.) -->
+  <!-- Web Components (registers <s-form>, <s-field>, etc.) -->
   <script type="module" src="../dist/stellify-ui.js"></script>
 
   <style>
@@ -18,44 +18,44 @@
     }
 
     body {
-      font-family: var(--sk-font-ui);
-      font-size: var(--sk-type-body);
-      background: var(--sk-bg-canvas);
-      color: var(--sk-fg-primary);
+      font-family: var(--s-font-ui);
+      font-size: var(--s-type-body);
+      background: var(--s-bg-canvas);
+      color: var(--s-fg-primary);
       margin: 0;
       min-height: 100vh;
       display: grid;
       place-items: center;
-      padding: var(--sk-s-4);
+      padding: var(--s-s-4);
     }
 
     .card {
-      background: var(--sk-bg-surface);
-      border: 1px solid var(--sk-rule);
-      border-radius: var(--sk-r-4);
-      padding: var(--sk-s-6);
+      background: var(--s-bg-surface);
+      border: 1px solid var(--s-rule);
+      border-radius: var(--s-r-4);
+      padding: var(--s-s-6);
       width: 100%;
       max-width: 400px;
     }
 
     h1 {
-      font-size: var(--sk-type-h1);
-      margin: 0 0 var(--sk-s-2);
+      font-size: var(--s-type-h1);
+      margin: 0 0 var(--s-s-2);
     }
 
     .subtitle {
-      color: var(--sk-fg-tertiary);
-      margin: 0 0 var(--sk-s-5);
+      color: var(--s-fg-tertiary);
+      margin: 0 0 var(--s-s-5);
     }
 
     .form-alert {
       background: hsl(0 72% 50% / 0.1);
-      border: 1px solid var(--sk-negative);
-      color: var(--sk-negative);
-      padding: var(--sk-s-3) var(--sk-s-4);
-      border-radius: var(--sk-r-2);
-      font-size: var(--sk-type-small);
-      margin-bottom: var(--sk-s-4);
+      border: 1px solid var(--s-negative);
+      color: var(--s-negative);
+      padding: var(--s-s-3) var(--s-s-4);
+      border-radius: var(--s-r-2);
+      font-size: var(--s-type-small);
+      margin-bottom: var(--s-s-4);
       display: none;
     }
 
@@ -64,37 +64,37 @@
     }
 
     .field {
-      margin-bottom: var(--sk-s-4);
+      margin-bottom: var(--s-s-4);
     }
 
     label {
       display: block;
-      font-size: var(--sk-type-ui);
+      font-size: var(--s-type-ui);
       font-weight: 500;
-      margin-bottom: var(--sk-s-1);
+      margin-bottom: var(--s-s-1);
     }
 
     input {
       width: 100%;
-      padding: var(--sk-s-2) var(--sk-s-3);
-      font-size: var(--sk-type-body);
+      padding: var(--s-s-2) var(--s-s-3);
+      font-size: var(--s-type-body);
       font-family: inherit;
-      border: 1px solid var(--sk-rule);
-      border-radius: var(--sk-r-2);
-      background: var(--sk-bg-canvas);
-      color: var(--sk-fg-primary);
-      transition: border-color var(--sk-d-quick) var(--sk-ease-out),
-                  box-shadow var(--sk-d-quick) var(--sk-ease-out);
+      border: 1px solid var(--s-rule);
+      border-radius: var(--s-r-2);
+      background: var(--s-bg-canvas);
+      color: var(--s-fg-primary);
+      transition: border-color var(--s-d-quick) var(--s-ease-out),
+                  box-shadow var(--s-d-quick) var(--s-ease-out);
     }
 
     input:focus {
       outline: none;
-      border-color: var(--sk-action);
-      box-shadow: 0 0 0 3px var(--sk-focus-ring);
+      border-color: var(--s-action);
+      box-shadow: 0 0 0 3px var(--s-focus-ring);
     }
 
     input[aria-invalid="true"] {
-      border-color: var(--sk-negative);
+      border-color: var(--s-negative);
     }
 
     input[aria-invalid="true"]:focus {
@@ -103,9 +103,9 @@
 
     .error-message {
       display: none;
-      color: var(--sk-negative);
-      font-size: var(--sk-type-small);
-      margin-top: var(--sk-s-1);
+      color: var(--s-negative);
+      font-size: var(--s-type-small);
+      margin-top: var(--s-s-1);
     }
 
     .password-wrapper {
@@ -113,39 +113,39 @@
     }
 
     .password-wrapper input {
-      padding-right: var(--sk-s-7);
+      padding-right: var(--s-s-7);
     }
 
     .reveal-btn {
       position: absolute;
-      right: var(--sk-s-2);
+      right: var(--s-s-2);
       top: 50%;
       transform: translateY(-50%);
       background: none;
       border: none;
-      padding: var(--sk-s-1);
+      padding: var(--s-s-1);
       cursor: pointer;
-      color: var(--sk-fg-tertiary);
-      border-radius: var(--sk-r-1);
+      color: var(--s-fg-tertiary);
+      border-radius: var(--s-r-1);
     }
 
     .reveal-btn:hover {
-      color: var(--sk-fg-primary);
-      background: var(--sk-bg-hover);
+      color: var(--s-fg-primary);
+      background: var(--s-bg-hover);
     }
 
     button[type="submit"] {
       width: 100%;
-      padding: var(--sk-s-3) var(--sk-s-4);
-      font-size: var(--sk-type-ui);
+      padding: var(--s-s-3) var(--s-s-4);
+      font-size: var(--s-type-ui);
       font-weight: 500;
       font-family: inherit;
-      background: var(--sk-action);
-      color: var(--sk-action-fg);
+      background: var(--s-action);
+      color: var(--s-action-fg);
       border: none;
-      border-radius: var(--sk-r-2);
+      border-radius: var(--s-r-2);
       cursor: pointer;
-      transition: opacity var(--sk-d-quick) var(--sk-ease-out);
+      transition: opacity var(--s-d-quick) var(--s-ease-out);
     }
 
     button[type="submit"]:hover:not([disabled]) {
@@ -167,11 +167,11 @@
     <h1>Sign in</h1>
     <p class="subtitle">Enter your credentials to continue</p>
 
-    <sk-form>
+    <s-form>
       <form action="/login" method="POST">
         <div data-form-alert class="form-alert"></div>
 
-        <sk-field class="field">
+        <s-field class="field">
           <label for="email">Email</label>
           <input
             type="email"
@@ -184,9 +184,9 @@
           <div data-error class="error-message" style="display: none;">
             <p></p>
           </div>
-        </sk-field>
+        </s-field>
 
-        <sk-field class="field">
+        <s-field class="field">
           <label for="password">Password</label>
           <div class="password-wrapper">
             <input
@@ -207,11 +207,11 @@
           <div data-error class="error-message" style="display: none;">
             <p></p>
           </div>
-        </sk-field>
+        </s-field>
 
         <button type="submit">Sign in</button>
       </form>
-    </sk-form>
+    </s-form>
   </div>
 </body>
 </html>
