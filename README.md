@@ -52,8 +52,42 @@ All three share `base.css` for structural tokens (spacing, radii, motion, typogr
 - `<st-form>` — form orchestrator: synchronous validation, focus management, alert state
 - `<st-field>` — input wrapper: validates on blur, drives existing error markup
 - `<st-checkbox>` — accessible checkbox primitive
+- `<st-menu>` — dropdown/popup menu primitive with keyboard navigation
 
-More components ship as Stellify's surface area grows. The architecture supports `<st-dialog>`, `<st-toggle>`, `<st-dropdown>`, `<st-table>` etc. on the same model.
+More components ship as Stellify's surface area grows. The architecture supports `<st-dialog>`, `<st-toggle>`, `<st-table>` etc. on the same model.
+
+### st-menu
+
+A dropdown/popup menu primitive. Used for user menus, action menus, and other lists of choices anchored to a trigger button.
+
+```html
+<st-menu>
+  <button data-menu-trigger type="button" class="...">
+    Open menu
+  </button>
+
+  <div data-menu-content role="menu" class="..." hidden>
+    <a href="/settings" role="menuitem" class="...">Settings</a>
+    <button type="button" role="menuitem" class="...">Log out</button>
+  </div>
+</st-menu>
+```
+
+The component discovers the trigger and content via `data-menu-trigger` and `data-menu-content` attributes. Menu items inside the content should have `role="menuitem"` for keyboard navigation.
+
+#### Attributes
+
+- `placement` — Menu position relative to trigger. One of `"top"`, `"bottom"`, `"top-start"`, `"top-end"`, `"bottom-start"`, `"bottom-end"`. Defaults to `"bottom-start"`.
+
+#### Keyboard
+
+- `ArrowDown` / `ArrowUp` — Move between menu items.
+- `Home` / `End` — Jump to first / last item.
+- `Enter` / `Space` — Activate the focused item.
+- `Escape` — Close the menu.
+- `Tab` — Close the menu and continue tabbing.
+
+The menu uses the native Popover API where available, with a fallback for older browsers. No additional library required.
 
 ## Laravel Blade integration
 
