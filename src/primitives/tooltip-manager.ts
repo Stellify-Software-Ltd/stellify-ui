@@ -8,11 +8,11 @@
  * instant hide.
  *
  * Components can scope the manager with `attach(rootElement, predicate)`
- * — used by <sk-sidebar> to only show tooltips when in rail mode.
+ * — used by <st-sidebar> to only show tooltips when in rail mode.
  */
 
 const TOOLTIP_DELAY = 350
-const TOOLTIP_CLASS = 'sk-tooltip'
+const TOOLTIP_CLASS = 'st-tooltip'
 
 let tooltipEl: HTMLDivElement | null = null
 
