@@ -168,6 +168,8 @@ export class StMenu extends HTMLElement {
   private _initPopover() {
     if (!this._content || !this._trigger) return
 
+    // Remove hidden attribute - popover API controls visibility
+    this._content.removeAttribute('hidden')
     this._content.setAttribute('popover', 'auto')
 
     // Set up CSS anchor positioning if supported
