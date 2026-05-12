@@ -6,7 +6,7 @@ const STATE_KEY = 'stellify.sidebar.state'
 type SidebarState = 'expanded' | 'rail'
 
 /**
- * <s-sidebar>
+ * <st-sidebar>
  *
  * Wraps existing sidebar markup (header, nav, footer as direct children).
  * Manages collapsed/expanded state, persists it to localStorage,
@@ -17,7 +17,7 @@ type SidebarState = 'expanded' | 'rail'
  * The visual transitions are entirely CSS-driven via the data-state
  * attribute. The component never sets style.width or similar.
  */
-export class SSidebar extends HTMLElement {
+export class StSidebar extends HTMLElement {
   private _mounted = false
   private _cleanups: Array<() => void> = []
   private _toggleBtn: HTMLElement | null = null
@@ -55,7 +55,7 @@ export class SSidebar extends HTMLElement {
     persistedState.set(STATE_KEY, next)
     this._syncToggleAria()
     this.dispatchEvent(
-      new CustomEvent('s-sidebar:change', {
+      new CustomEvent('st-sidebar:change', {
         detail: { state: next },
         bubbles: true,
       }),
@@ -164,17 +164,17 @@ export class SSidebar extends HTMLElement {
     })
     // Hide tooltip whenever state changes
     const onStateChange = () => this._tooltipScope?.detach()
-    this.addEventListener('s-sidebar:change', onStateChange)
+    this.addEventListener('st-sidebar:change', onStateChange)
     this._cleanups.push(() =>
-      this.removeEventListener('s-sidebar:change', onStateChange),
+      this.removeEventListener('st-sidebar:change', onStateChange),
     )
   }
 }
 
-customElements.define('s-sidebar', SSidebar)
+customElements.define('st-sidebar', StSidebar)
 
 declare global {
   interface HTMLElementTagNameMap {
-    's-sidebar': SSidebar
+    'st-sidebar': StSidebar
   }
 }

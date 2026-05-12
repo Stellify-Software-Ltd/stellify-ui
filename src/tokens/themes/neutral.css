@@ -7,62 +7,62 @@
 
 :root {
   /* Stellify semantic tokens */
-  --s-bg-canvas:        #fafafa;
-  --s-bg-surface:       #ffffff;
-  --s-bg-rail:          #f4f4f5;
-  --s-bg-rail-edge:     #e4e4e7;
-  --s-bg-selected:      rgba(0, 0, 0, 0.045);
-  --s-bg-hover:         rgba(0, 0, 0, 0.03);
-  --s-bg-pressed:       rgba(0, 0, 0, 0.07);
+  --st-bg-canvas:        #fafafa;
+  --st-bg-surface:       #ffffff;
+  --st-bg-rail:          #f4f4f5;
+  --st-bg-rail-edge:     #e4e4e7;
+  --st-bg-selected:      rgba(0, 0, 0, 0.045);
+  --st-bg-hover:         rgba(0, 0, 0, 0.03);
+  --st-bg-pressed:       rgba(0, 0, 0, 0.07);
 
-  --s-fg-primary:       #18181b;
-  --s-fg-secondary:     #3f3f46;
-  --s-fg-tertiary:      #71717a;
-  --s-fg-quaternary:    #a1a1aa;
-  --s-fg-on-accent:     #fafafa;
+  --st-fg-primary:       #18181b;
+  --st-fg-secondary:     #3f3f46;
+  --st-fg-tertiary:      #71717a;
+  --st-fg-quaternary:    #a1a1aa;
+  --st-fg-on-accent:     #fafafa;
 
-  --s-action:           #18181b;
-  --s-action-fg:        #fafafa;
-  --s-action-rule:      #18181b;
-  --s-positive:         #16a34a;
-  --s-negative:         #dc2626;
+  --st-action:           #18181b;
+  --st-action-fg:        #fafafa;
+  --st-action-rule:      #18181b;
+  --st-positive:         #16a34a;
+  --st-negative:         #dc2626;
 
-  --s-rule:             #e4e4e7;
-  --s-rule-subtle:      #ededee;
-  --s-rule-faint:       #f4f4f5;
+  --st-rule:             #e4e4e7;
+  --st-rule-subtle:      #ededee;
+  --st-rule-faint:       #f4f4f5;
 
-  --s-focus-ring:       rgba(24, 24, 27, 0.25);
+  --st-focus-ring:       rgba(24, 24, 27, 0.25);
 
   /* Typography — system stack, no web fonts */
-  --s-font-display:     -apple-system, BlinkMacSystemFont, "Segoe UI", system-ui, sans-serif;
-  --s-font-ui:          -apple-system, BlinkMacSystemFont, "Segoe UI", system-ui, sans-serif;
-  --s-font-mono:        ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, monospace;
+  --st-font-display:     -apple-system, BlinkMacSystemFont, "Segoe UI", system-ui, sans-serif;
+  --st-font-ui:          -apple-system, BlinkMacSystemFont, "Segoe UI", system-ui, sans-serif;
+  --st-font-mono:        ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, monospace;
 }
 
 .dark {
-  --s-bg-canvas:        #09090b;
-  --s-bg-surface:       #18181b;
-  --s-bg-rail:          #09090b;
-  --s-bg-rail-edge:     #27272a;
-  --s-bg-selected:      rgba(255, 255, 255, 0.06);
-  --s-bg-hover:         rgba(255, 255, 255, 0.035);
-  --s-bg-pressed:       rgba(255, 255, 255, 0.09);
+  --st-bg-canvas:        #09090b;
+  --st-bg-surface:       #18181b;
+  --st-bg-rail:          #09090b;
+  --st-bg-rail-edge:     #27272a;
+  --st-bg-selected:      rgba(255, 255, 255, 0.06);
+  --st-bg-hover:         rgba(255, 255, 255, 0.035);
+  --st-bg-pressed:       rgba(255, 255, 255, 0.09);
 
-  --s-fg-primary:       #fafafa;
-  --s-fg-secondary:     #d4d4d8;
-  --s-fg-tertiary:      #a1a1aa;
-  --s-fg-quaternary:    #52525b;
-  --s-fg-on-accent:     #18181b;
+  --st-fg-primary:       #fafafa;
+  --st-fg-secondary:     #d4d4d8;
+  --st-fg-tertiary:      #a1a1aa;
+  --st-fg-quaternary:    #52525b;
+  --st-fg-on-accent:     #18181b;
 
-  --s-action:           #fafafa;
-  --s-action-fg:        #18181b;
-  --s-action-rule:      #fafafa;
-  --s-positive:         #4ade80;
-  --s-negative:         #f87171;
+  --st-action:           #fafafa;
+  --st-action-fg:        #18181b;
+  --st-action-rule:      #fafafa;
+  --st-positive:         #4ade80;
+  --st-negative:         #f87171;
 
-  --s-rule:             #27272a;
-  --s-rule-subtle:      #1f1f22;
-  --s-rule-faint:       #18181b;
+  --st-rule:             #27272a;
+  --st-rule-subtle:      #1f1f22;
+  --st-rule-faint:       #18181b;
 
-  --s-focus-ring:       rgba(250, 250, 250, 0.3);
+  --st-focus-ring:       rgba(250, 250, 250, 0.3);
 }

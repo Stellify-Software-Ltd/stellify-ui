@@ -5,6 +5,15 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.3.1] - 2025
+
+### Changed
+
+- **BREAKING:** All component names changed from `s-*` to `st-*` prefix (e.g., `<s-field>` is now `<st-field>`). This avoids naming collisions with other component libraries.
+- **BREAKING:** All CSS custom property tokens changed from `--s-*` to `--st-*` prefix (e.g., `--s-bg-canvas` is now `--st-bg-canvas`).
+- **BREAKING:** Custom events renamed: `s-checkbox:change` → `st-checkbox:change`, `s-sidebar:change` → `st-sidebar:change`.
+- **BREAKING:** Exported class names changed: `SField` → `StField`, `SForm` → `StForm`, `SCheckbox` → `StCheckbox`, `SSidebar` → `StSidebar`.
+
 ## [0.3.0] - 2025
 
 ### Changed
@@ -24,21 +33,21 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Changed
 
-- **BREAKING:** `<s-field>` no longer accepts an `error` attribute. The component now reads its initial error state from the DOM produced by the server. Render errors directly in Blade using `<p data-error>` and `aria-invalid` on the input. See README for migration guide.
+- **BREAKING:** `<st-field>` no longer accepts an `error` attribute. The component now reads its initial error state from the DOM produced by the server. Render errors directly in Blade using `<p data-error>` and `aria-invalid` on the input. See README for migration guide.
 
 ## [0.1.4] - 2025
 
-- `<s-field>` now accepts an `error` attribute for simplified server-rendered validation errors.
+- `<st-field>` now accepts an `error` attribute for simplified server-rendered validation errors.
 
 ## [0.1.0] - 2024
 
 ### Added
 
 - **Components**
-  - `<s-form>` — Form wrapper with client-side validation orchestration, loading states, and server error handling
-  - `<s-field>` — Field wrapper with blur validation, input clearing, and password reveal support
-  - `<s-checkbox>` — Checkbox component with indeterminate state support
-  - `<s-sidebar>` — Collapsible sidebar with persisted state and tooltip-on-collapse behavior
+  - `<st-form>` — Form wrapper with client-side validation orchestration, loading states, and server error handling
+  - `<st-field>` — Field wrapper with blur validation, input clearing, and password reveal support
+  - `<st-checkbox>` — Checkbox component with indeterminate state support
+  - `<st-sidebar>` — Collapsible sidebar with persisted state and tooltip-on-collapse behavior
 
 - **Primitives**
   - `persistedState` — localStorage-backed reactive state helper

@@ -6,55 +6,55 @@
 
 :root {
   /* ----- Spacing — 4px baseline grid ----- */
-  --s-u: 4px;
-  --s-s-1: 4px;
-  --s-s-2: 8px;
-  --s-s-3: 12px;
-  --s-s-4: 16px;
-  --s-s-5: 24px;
-  --s-s-6: 32px;
-  --s-s-7: 48px;
-  --s-s-8: 64px;
+  --st-u: 4px;
+  --st-s-1: 4px;
+  --st-s-2: 8px;
+  --st-s-3: 12px;
+  --st-s-4: 16px;
+  --st-s-5: 24px;
+  --st-s-6: 32px;
+  --st-s-7: 48px;
+  --st-s-8: 64px;
 
   /* ----- Type scale ----- */
-  --s-type-display: clamp(32px, 4.4vw, 44px);
-  --s-type-h1: 28px;
-  --s-type-h2: 18px;
-  --s-type-body: 13.5px;
-  --s-type-ui: 13px;
-  --s-type-small: 12px;
-  --s-type-micro: 10.5px;
+  --st-type-display: clamp(32px, 4.4vw, 44px);
+  --st-type-h1: 28px;
+  --st-type-h2: 18px;
+  --st-type-body: 13.5px;
+  --st-type-ui: 13px;
+  --st-type-small: 12px;
+  --st-type-micro: 10.5px;
 
   /* ----- Motion ----- */
-  --s-d-quick: 120ms;
-  --s-d-base: 200ms;
-  --s-d-slow: 320ms;
-  --s-ease-out: cubic-bezier(0.16, 1, 0.3, 1);
-  --s-ease-soft: cubic-bezier(0.32, 0.72, 0.4, 1);
+  --st-d-quick: 120ms;
+  --st-d-base: 200ms;
+  --st-d-slow: 320ms;
+  --st-ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+  --st-ease-soft: cubic-bezier(0.32, 0.72, 0.4, 1);
 
   /* ----- Radii ----- */
-  --s-r-1: 4px;
-  --s-r-2: 6px;
-  --s-r-3: 8px;
-  --s-r-4: 12px;
+  --st-r-1: 4px;
+  --st-r-2: 6px;
+  --st-r-3: 8px;
+  --st-r-4: 12px;
 
   /* ----- Sidebar metrics ----- */
-  --s-sidebar-w-expanded: 248px;
-  --s-sidebar-w-rail: 60px;
-  --s-sidebar-w: var(--s-sidebar-w-expanded);
+  --st-sidebar-w-expanded: 248px;
+  --st-sidebar-w-rail: 60px;
+  --st-sidebar-w: var(--st-sidebar-w-expanded);
 }
 
 /* When the primary sidebar is in rail mode, the layout collapses */
-:root:has(s-sidebar[data-state="rail"]) {
-  --s-sidebar-w: var(--s-sidebar-w-rail);
+:root:has(st-sidebar[data-state="rail"]) {
+  --st-sidebar-w: var(--st-sidebar-w-rail);
 }
 
 /* Reduced-motion: tighten transitions everywhere */
 @media (prefers-reduced-motion: reduce) {
   :root {
-    --s-d-quick: 0.01ms;
-    --s-d-base: 0.01ms;
-    --s-d-slow: 0.01ms;
+    --st-d-quick: 0.01ms;
+    --st-d-base: 0.01ms;
+    --st-d-slow: 0.01ms;
   }
 }
 
@@ -62,7 +62,7 @@
    Submit-button loading state.
    Toggle visibility of [data-loading-icon], [data-label-default],
    and [data-label-loading] children based on the [loading]
-   attribute that <s-form> sets on the submit button.
+   attribute that <st-form> sets on the submit button.
    ============================================================ */
 
 button [data-loading-icon],

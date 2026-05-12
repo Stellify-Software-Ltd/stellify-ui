@@ -9,7 +9,7 @@
   <link rel="stylesheet" href="../dist/tokens/base.css">
   <link rel="stylesheet" href="../dist/tokens/themes/shadcn.css">
 
-  <!-- Web Components (registers <s-form>, <s-field>, etc.) -->
+  <!-- Web Components (registers <st-form>, <st-field>, etc.) -->
   <script type="module" src="../dist/stellify-ui.js"></script>
 
   <style>
@@ -18,44 +18,44 @@
     }
 
     body {
-      font-family: var(--s-font-ui);
-      font-size: var(--s-type-body);
-      background: var(--s-bg-canvas);
-      color: var(--s-fg-primary);
+      font-family: var(--st-font-ui);
+      font-size: var(--st-type-body);
+      background: var(--st-bg-canvas);
+      color: var(--st-fg-primary);
       margin: 0;
       min-height: 100vh;
       display: grid;
       place-items: center;
-      padding: var(--s-s-4);
+      padding: var(--st-s-4);
     }
 
     .card {
-      background: var(--s-bg-surface);
-      border: 1px solid var(--s-rule);
-      border-radius: var(--s-r-4);
-      padding: var(--s-s-6);
+      background: var(--st-bg-surface);
+      border: 1px solid var(--st-rule);
+      border-radius: var(--st-r-4);
+      padding: var(--st-s-6);
       width: 100%;
       max-width: 400px;
     }
 
     h1 {
-      font-size: var(--s-type-h1);
-      margin: 0 0 var(--s-s-2);
+      font-size: var(--st-type-h1);
+      margin: 0 0 var(--st-s-2);
     }
 
     .subtitle {
-      color: var(--s-fg-tertiary);
-      margin: 0 0 var(--s-s-5);
+      color: var(--st-fg-tertiary);
+      margin: 0 0 var(--st-s-5);
     }
 
     .form-alert {
       background: hsl(0 72% 50% / 0.1);
-      border: 1px solid var(--s-negative);
-      color: var(--s-negative);
-      padding: var(--s-s-3) var(--s-s-4);
-      border-radius: var(--s-r-2);
-      font-size: var(--s-type-small);
-      margin-bottom: var(--s-s-4);
+      border: 1px solid var(--st-negative);
+      color: var(--st-negative);
+      padding: var(--st-s-3) var(--st-s-4);
+      border-radius: var(--st-r-2);
+      font-size: var(--st-type-small);
+      margin-bottom: var(--st-s-4);
       display: none;
     }
 
@@ -64,37 +64,37 @@
     }
 
     .field {
-      margin-bottom: var(--s-s-4);
+      margin-bottom: var(--st-s-4);
     }
 
     label {
       display: block;
-      font-size: var(--s-type-ui);
+      font-size: var(--st-type-ui);
       font-weight: 500;
-      margin-bottom: var(--s-s-1);
+      margin-bottom: var(--st-s-1);
     }
 
     input {
       width: 100%;
-      padding: var(--s-s-2) var(--s-s-3);
-      font-size: var(--s-type-body);
+      padding: var(--st-s-2) var(--st-s-3);
+      font-size: var(--st-type-body);
       font-family: inherit;
-      border: 1px solid var(--s-rule);
-      border-radius: var(--s-r-2);
-      background: var(--s-bg-canvas);
-      color: var(--s-fg-primary);
-      transition: border-color var(--s-d-quick) var(--s-ease-out),
-                  box-shadow var(--s-d-quick) var(--s-ease-out);
+      border: 1px solid var(--st-rule);
+      border-radius: var(--st-r-2);
+      background: var(--st-bg-canvas);
+      color: var(--st-fg-primary);
+      transition: border-color var(--st-d-quick) var(--st-ease-out),
+                  box-shadow var(--st-d-quick) var(--st-ease-out);
     }
 
     input:focus {
       outline: none;
-      border-color: var(--s-action);
-      box-shadow: 0 0 0 3px var(--s-focus-ring);
+      border-color: var(--st-action);
+      box-shadow: 0 0 0 3px var(--st-focus-ring);
     }
 
     input[aria-invalid="true"] {
-      border-color: var(--s-negative);
+      border-color: var(--st-negative);
     }
 
     input[aria-invalid="true"]:focus {
@@ -103,9 +103,9 @@
 
     .error-message {
       display: none;
-      color: var(--s-negative);
-      font-size: var(--s-type-small);
-      margin-top: var(--s-s-1);
+      color: var(--st-negative);
+      font-size: var(--st-type-small);
+      margin-top: var(--st-s-1);
     }
 
     .password-wrapper {
@@ -113,39 +113,39 @@
     }
 
     .password-wrapper input {
-      padding-right: var(--s-s-7);
+      padding-right: var(--st-s-7);
     }
 
     .reveal-btn {
       position: absolute;
-      right: var(--s-s-2);
+      right: var(--st-s-2);
       top: 50%;
       transform: translateY(-50%);
       background: none;
       border: none;
-      padding: var(--s-s-1);
+      padding: var(--st-s-1);
       cursor: pointer;
-      color: var(--s-fg-tertiary);
-      border-radius: var(--s-r-1);
+      color: var(--st-fg-tertiary);
+      border-radius: var(--st-r-1);
     }
 
     .reveal-btn:hover {
-      color: var(--s-fg-primary);
-      background: var(--s-bg-hover);
+      color: var(--st-fg-primary);
+      background: var(--st-bg-hover);
     }
 
     button[type="submit"] {
       width: 100%;
-      padding: var(--s-s-3) var(--s-s-4);
-      font-size: var(--s-type-ui);
+      padding: var(--st-s-3) var(--st-s-4);
+      font-size: var(--st-type-ui);
       font-weight: 500;
       font-family: inherit;
-      background: var(--s-action);
-      color: var(--s-action-fg);
+      background: var(--st-action);
+      color: var(--st-action-fg);
       border: none;
-      border-radius: var(--s-r-2);
+      border-radius: var(--st-r-2);
       cursor: pointer;
-      transition: opacity var(--s-d-quick) var(--s-ease-out);
+      transition: opacity var(--st-d-quick) var(--st-ease-out);
     }
 
     button[type="submit"]:hover:not([disabled]) {
@@ -167,11 +167,11 @@
     <h1>Sign in</h1>
     <p class="subtitle">Enter your credentials to continue</p>
 
-    <s-form>
+    <st-form>
       <form action="/login" method="POST">
         <div data-form-alert class="form-alert"></div>
 
-        <s-field class="field">
+        <st-field class="field">
           <label for="email">Email</label>
           <input
             type="email"
@@ -184,9 +184,9 @@
           <div data-error class="error-message" style="display: none;">
             <p></p>
           </div>
-        </s-field>
+        </st-field>
 
-        <s-field class="field">
+        <st-field class="field">
           <label for="password">Password</label>
           <div class="password-wrapper">
             <input
@@ -207,11 +207,11 @@
           <div data-error class="error-message" style="display: none;">
             <p></p>
           </div>
-        </s-field>
+        </st-field>
 
         <button type="submit">Sign in</button>
       </form>
-    </s-form>
+    </st-form>
   </div>
 </body>
 </html>
