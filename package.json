@@ -1,6 +1,6 @@
 {
   "name": "@stellisoft/stellify-ui",
-  "version": "0.4.4",
+  "version": "0.5.0",
   "description": "Web Component primitives and design tokens for Stellify-rendered apps",
   "type": "module",
   "main": "./dist/stellify-ui.js",
@@ -14,7 +14,8 @@
     "./tokens/base.css": "./dist/tokens/base.css",
     "./tokens/shadcn.css": "./dist/tokens/themes/shadcn.css",
     "./tokens/editorial.css": "./dist/tokens/themes/editorial.css",
-    "./tokens/neutral.css": "./dist/tokens/themes/neutral.css"
+    "./tokens/neutral.css": "./dist/tokens/themes/neutral.css",
+    "./components/st-sidebar.css": "./dist/components/st-sidebar.css"
   },
   "files": [
     "dist"

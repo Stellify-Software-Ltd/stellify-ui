@@ -1,0 +1,52 @@
+/* ============================================================
+   st-sidebar — structural behaviour
+   Layout, dimensions, transitions, and descendant collapse rules.
+   Surface appearance (bg, border, color) is consumer's responsibility.
+   ============================================================ */
+
+st-sidebar {
+  display: flex;
+  flex-direction: column;
+  width: var(--st-sidebar-width, 16rem);
+  transition: width var(--st-sidebar-duration, 200ms) ease-in-out;
+  overflow: hidden;
+}
+
+st-sidebar[data-state="rail"] {
+  width: var(--st-sidebar-rail-width, 4rem);
+}
+
+/* Hide section labels in rail mode */
+st-sidebar[data-state="rail"] .nav-section-label {
+  display: none;
+}
+
+/* Centre icon-only nav items in rail mode */
+st-sidebar[data-state="rail"] .nav-item {
+  justify-content: center;
+  gap: 0;
+}
+
+/* Hide any non-icon child of a nav-item in rail mode.
+   "Icon" is defined as svg, img, or an explicit .nav-icon container. */
+st-sidebar[data-state="rail"] .nav-item > *:not(svg):not(img):not(.nav-icon) {
+  display: none;
+}
+
+/* User menu trigger inside the sidebar gets the same treatment */
+st-sidebar[data-state="rail"] [data-menu-trigger] {
+  justify-content: center;
+  gap: 0;
+}
+
+st-sidebar[data-state="rail"] [data-menu-trigger] > *:not(:first-child) {
+  display: none;
+}
+
+/* Prevent icon shrinkage during transition */
+st-sidebar .nav-item > svg,
+st-sidebar .nav-item > img,
+st-sidebar .nav-item > .nav-icon,
+st-sidebar [data-menu-trigger] > :first-child {
+  flex-shrink: 0;
+}

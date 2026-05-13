@@ -5,11 +5,19 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## [0.4.4] - 2025
+## [0.5.0] - 2025
 
 ### Added
 
-- `<st-sidebar>` width styles now ship with `base.css`. The sidebar automatically transitions between expanded (248px) and rail (60px) widths based on `data-state`. This removes the need for Tailwind variant classes like `data-[state=rail]:w-16`.
+- `<st-sidebar>` now ships its own CSS file (`dist/components/st-sidebar.css`) containing all structural behaviour: layout, dimensions, transitions, and descendant collapse rules. Consumers no longer need width classes, transition classes, or per-element collapse utilities.
+
+### Changed
+
+- **BREAKING:** Sidebar styling moved from `base.css` to dedicated component CSS. Import `@stellisoft/stellify-ui/dist/components/st-sidebar.css` or include it via a `<link>` tag. The component CSS handles expanded/rail width transitions, hiding `.nav-section-label` in rail mode, centring `.nav-item` icons, and collapsing `[data-menu-trigger]` children.
+
+- Sidebar dimensions are now configurable via CSS variables: `--st-sidebar-width` (default 16rem), `--st-sidebar-rail-width` (default 4rem), `--st-sidebar-duration` (default 200ms).
+
+- Surface appearance (background, border, text colour) is now the consumer's responsibility. Apply these via Tailwind utilities or custom CSS on the `<st-sidebar>` element.
 
 ## [0.4.3] - 2025
 

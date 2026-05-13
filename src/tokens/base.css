@@ -49,21 +49,6 @@
   --st-sidebar-w: var(--st-sidebar-w-rail);
 }
 
-/* ============================================================
-   Sidebar component styles.
-   Core width transitions for expanded/rail states.
-   ============================================================ */
-
-st-sidebar {
-  display: block;
-  width: var(--st-sidebar-w-expanded);
-  transition: width var(--st-d-base) var(--st-ease-out);
-}
-
-st-sidebar[data-state="rail"] {
-  width: var(--st-sidebar-w-rail);
-}
-
 /* Reduced-motion: tighten transitions everywhere */
 @media (prefers-reduced-motion: reduce) {
   :root {

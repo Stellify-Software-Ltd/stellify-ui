@@ -56,6 +56,115 @@ All three share `base.css` for structural tokens (spacing, radii, motion, typogr
 
 More components ship as Stellify's surface area grows. The architecture supports `<st-dialog>`, `<st-toggle>`, `<st-table>` etc. on the same model.
 
+### st-sidebar
+
+A collapsible navigation sidebar component. Manages expanded / rail (icon-only) state with persistence, keyboard shortcut (⌘B / Ctrl+B), animated transitions, and accessible arrow-key navigation between items.
+
+```html
+<st-sidebar class="border-r bg-card text-foreground">
+  <header>
+    <a href="/" class="nav-item">
+      <svg><!-- logo --></svg>
+      <span>App name</span>
+    </a>
+  </header>
+
+  <nav>
+    <div class="nav-section-label">Platform</div>
+    <ul>
+      <li>
+        <a href="/dashboard" class="nav-item">
+          <svg><!-- icon --></svg>
+          <span>Dashboard</span>
+        </a>
+      </li>
+    </ul>
+  </nav>
+
+  <footer>
+    <st-menu placement="top-start">
+      <button data-menu-trigger type="button">
+        <span><!-- avatar --></span>
+        <span>User name</span>
+        <svg><!-- chevron --></svg>
+      </button>
+      <div data-menu-content role="menu" hidden>
+        <!-- menu items -->
+      </div>
+    </st-menu>
+  </footer>
+</st-sidebar>
+```
+
+#### Class hooks
+
+The component recognises a few conventional class names on descendants:
+
+- `.nav-item` — Navigation entries (anchors, buttons). In rail mode their text labels hide and their icons centre. The component also uses this class for arrow-key navigation.
+- `.nav-section-label` — Section headings like "Platform" or "Settings". Hidden in rail mode.
+- `.nav-icon` (optional) — Wrap a non-`<svg>` non-`<img>` icon (e.g. an inline span with a background image) with this class so it's treated as an icon in rail mode.
+
+#### Surface appearance
+
+Apply background, border, text colour, shadows, etc. directly to the `<st-sidebar>` element via Tailwind utilities or your own CSS. The component does not paint its own surface — that's an application-level decision.
+
+Common patterns:
+
+```html
+<!-- Card-like sidebar with right border -->
+<st-sidebar class="border-r bg-card text-foreground">
+
+<!-- Floating sidebar with shadow -->
+<st-sidebar class="rounded-lg border bg-card text-foreground shadow-sm">
+
+<!-- Sidebar matching the page background, no border -->
+<st-sidebar class="bg-background text-foreground">
+```
+
+#### Customising dimensions and transition
+
+Override these CSS variables on `st-sidebar` to adjust collapse behaviour:
+
+| Variable | Default | Purpose |
+|----------|---------|---------|
+| `--st-sidebar-width` | `16rem` | Expanded width |
+| `--st-sidebar-rail-width` | `4rem` | Collapsed (rail) width |
+| `--st-sidebar-duration` | `200ms` | Width transition duration |
+
+```css
+st-sidebar {
+  --st-sidebar-width: 18rem;
+  --st-sidebar-rail-width: 3.5rem;
+  --st-sidebar-duration: 150ms;
+}
+```
+
+#### Toggle button
+
+Any element with the `data-sidebar-toggle` attribute, anywhere on the page, will toggle the sidebar when clicked:
+
+```html
+<button type="button" data-sidebar-toggle>Toggle sidebar</button>
+```
+
+If the sidebar has an `id`, the component prefers a toggle button with `aria-controls="sidebar-id"` for explicit pairing.
+
+#### Keyboard
+
+- ⌘B (Mac) / Ctrl+B (other) toggles state from anywhere on the page.
+- ArrowDown / ArrowUp move focus between `.nav-item` elements when one is focused.
+
+#### What you no longer need
+
+Consumers should *not* add the following to their markup any more — the component owns these behaviours:
+
+- Width classes like `w-64`, `data-[state=rail]:w-16`
+- Transition classes like `transition-[width]`, `duration-200`, `ease-in-out`
+- Flex direction or overflow on the sidebar itself
+- Per-element collapse classes (`sidebar-rail:hidden`, `sidebar-rail:justify-center`, etc.)
+
+The component's CSS handles all of these. Just write semantic markup with the class hooks above.
+
 ### st-menu
 
 A dropdown/popup menu primitive. Used for user menus, action menus, and other lists of choices anchored to a trigger button.

@@ -15,15 +15,16 @@ const buildOptions: BuildOptions = {
   logLevel: 'info',
 }
 
-const tokenFiles = [
+const cssFiles = [
   'src/tokens/base.css',
   'src/tokens/themes/shadcn.css',
   'src/tokens/themes/editorial.css',
   'src/tokens/themes/neutral.css',
+  'src/components/st-sidebar.css',
 ]
 
-function copyTokens() {
-  for (const file of tokenFiles) {
+function copyCss() {
+  for (const file of cssFiles) {
     const dest = file.replace(/^src\//, 'dist/')
     const dir = dirname(dest)
     if (!existsSync(dir)) mkdirSync(dir, { recursive: true })
@@ -35,10 +36,10 @@ function copyTokens() {
 if (watch) {
   const ctx = await context(buildOptions)
   await ctx.watch()
-  copyTokens()
+  copyCss()
   console.log('watching for changes…')
 } else {
   await build(buildOptions)
-  copyTokens()
+  copyCss()
   console.log('build complete')
 }
