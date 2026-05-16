@@ -15,6 +15,7 @@ import './components/st-form.js'
 import './components/st-field.js'
 import './components/st-checkbox.js'
 import './components/st-menu.js'
+import './components/st-frame.js'
 
 // Re-export classes for advanced consumers
 export { StSidebar } from './components/st-sidebar.js'
@@ -22,6 +23,7 @@ export { StForm } from './components/st-form.js'
 export { StField } from './components/st-field.js'
 export { StCheckbox } from './components/st-checkbox.js'
 export { StMenu } from './components/st-menu.js'
+export { StFrame } from './components/st-frame.js'
 
 // Re-export primitives for consumers building their own components
 export { persistedState } from './primitives/persisted-state.js'

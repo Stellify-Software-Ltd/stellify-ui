@@ -53,6 +53,7 @@ All three share `base.css` for structural tokens (spacing, radii, motion, typogr
 - `<st-field>` — input wrapper: validates on blur, drives existing error markup
 - `<st-checkbox>` — accessible checkbox primitive
 - `<st-menu>` — dropdown/popup menu primitive with keyboard navigation
+- `<st-frame>` — independently-updating subview: links and forms fetch and swap content without full page reload
 
 More components ship as Stellify's surface area grows. The architecture supports `<st-dialog>`, `<st-toggle>`, `<st-table>` etc. on the same model.
 
@@ -197,6 +198,81 @@ The component discovers the trigger and content via `data-menu-trigger` and `dat
 - `Tab` — Close the menu and continue tabbing.
 
 The menu uses the native Popover API where available, with a fallback for older browsers. No additional library required.
+
+### st-frame
+
+A region of the page that updates independently. Links and forms inside the frame navigate without a full page reload — they fetch the target URL and swap only the frame's content. Everything outside the frame stays untouched.
+
+```html
+<st-frame id="stats" src="/dashboard/stats">
+  <!-- initial server-rendered content -->
+  <div>Active users: 1,234</div>
+  <a href="/dashboard/stats?period=week">View weekly</a>
+</st-frame>
+```
+
+When a link inside the frame is clicked, the component fetches the target URL, finds an `<st-frame>` with the same `id` in the response, and swaps its content into the existing frame. The browser URL updates via `history.pushState`. The rest of the page is unaffected.
+
+#### Server response requirements
+
+The server must return a complete HTML document containing an `<st-frame>` with the same `id` as the source frame. The simplest approach is to render the full page as normal — the component extracts the matching frame and ignores everything else. There's no need for a separate "frame-only" route.
+
+For Laravel apps, this means your dashboard route can render the full layout (sidebar, header, frame content) and the frame component will pull out only the frame portion from the response.
+
+#### Attributes
+
+- `id` (required) — Unique identifier for the frame. Used to match frames between current page and response.
+- `src` (optional) — Initial URL the frame represents. Updated automatically as the frame navigates.
+
+#### Events
+
+All events bubble.
+
+- `st-frame:before-load` — Cancellable. Fired before fetching. Detail: `{ url, method }`.
+- `st-frame:load` — Fired after successful content swap. Detail: `{ url }`.
+- `st-frame:error` — Fired on fetch failure or non-OK response. Detail: `{ status, statusText, url }`.
+- `st-frame:missing` — Fired if the response did not contain a matching frame. Detail: `{ url }`.
+
+#### Loading state
+
+While a frame is fetching, `data-loading="true"` is set on the host element. Default styling reduces opacity to 0.6 and disables pointer events. Override or extend via CSS:
+
+```css
+st-frame[data-loading="true"] {
+  opacity: 0.4;
+  position: relative;
+}
+
+st-frame[data-loading="true"]::after {
+  content: 'Loading…';
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+```
+
+#### Opting out
+
+A link or form inside the frame can opt out of interception with `data-st-frame-passthrough`:
+
+```html
+<st-frame id="stats">
+  <a href="/dashboard/stats?period=day">Day</a> <!-- intercepted -->
+  <a href="/help" data-st-frame-passthrough>Help</a> <!-- normal navigation -->
+</st-frame>
+```
+
+External links (different origin), links with `target="_blank"`, and links with the `download` attribute are never intercepted.
+
+#### Browser back/forward
+
+The component plays nicely with browser navigation. Clicking the back button restores the previous frame state without a full page reload, provided the user has been navigating within the same frame.
+
+#### No-JavaScript fallback
+
+If JavaScript is disabled or hasn't loaded yet, links and forms inside the frame work as normal navigation — full page reloads. The frame degrades gracefully; nothing breaks.
 
 ## Laravel Blade integration
 

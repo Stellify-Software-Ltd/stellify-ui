@@ -21,6 +21,7 @@ const cssFiles = [
   'src/tokens/themes/editorial.css',
   'src/tokens/themes/neutral.css',
   'src/components/st-sidebar.css',
+  'src/components/st-frame.css',
 ]
 
 function copyCss() {

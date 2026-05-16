@@ -1,0 +1,9 @@
+st-frame {
+  display: block;
+}
+
+st-frame[data-loading="true"] {
+  opacity: 0.6;
+  pointer-events: none;
+  transition: opacity 150ms ease-in-out;
+}

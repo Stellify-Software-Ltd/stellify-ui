@@ -5,6 +5,12 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.6.0] - 2025
+
+### Added
+
+- `<st-frame>` — A region of the page that updates independently. Links and forms inside the frame navigate without a full page reload — they fetch the target URL and swap only the frame's content. The browser URL updates via `history.pushState`. The rest of the page stays untouched. Similar to Turbo Frames (Hotwire) or Inertia's partial reloads, built as an HTML Web Component.
+
 ## [0.5.0] - 2025
 
 ### Added
