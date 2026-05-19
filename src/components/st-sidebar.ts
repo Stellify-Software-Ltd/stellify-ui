@@ -81,15 +81,28 @@ export class StSidebar extends HTMLElement {
   // ---------- External toggle button --------------------------------------
 
   private _initToggleButton() {
-    const btn = this.id
-      ? document.querySelector<HTMLElement>(`[aria-controls="${this.id}"]`)
-      : document.querySelector<HTMLElement>('[data-sidebar-toggle]')
-    if (!btn) return
-    this._toggleBtn = btn
+    // Event delegation: listen on document, react when any matching toggle is clicked.
+    // Robust to buttons that don't exist yet at connectedCallback time, buttons added
+    // later via dynamic rendering, and multiple toggles targeting the same sidebar.
+    const handler = (e: Event) => {
+      const btn = (e.target as HTMLElement).closest<HTMLElement>(
+        '[data-sidebar-toggle]',
+      )
+      if (!btn) return
+      // If sidebar has an id, only respond to buttons that target it via aria-controls
+      if (this.id && btn.getAttribute('aria-controls') !== this.id) return
+      this.toggle()
+    }
+    document.addEventListener('click', handler)
+    this._cleanups.push(() => document.removeEventListener('click', handler))
 
-    const onClick = () => this.toggle()
-    btn.addEventListener('click', onClick)
-    this._cleanups.push(() => btn.removeEventListener('click', onClick))
+    // Find the button reference for ARIA sync (best-effort, deferred to allow DOM to parse)
+    queueMicrotask(() => {
+      this._toggleBtn = this.id
+        ? document.querySelector<HTMLElement>(`[aria-controls="${this.id}"]`)
+        : document.querySelector<HTMLElement>('[data-sidebar-toggle]')
+      this._syncToggleAria()
+    })
   }
 
   private _syncToggleAria() {
