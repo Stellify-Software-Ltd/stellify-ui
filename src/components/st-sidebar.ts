@@ -93,8 +93,9 @@ export class StSidebar extends HTMLElement {
       if (this.id && btn.getAttribute('aria-controls') !== this.id) return
       this.toggle()
     }
-    document.addEventListener('click', handler)
-    this._cleanups.push(() => document.removeEventListener('click', handler))
+    // Use capture phase so we receive the event before any stopPropagation() in the bubble phase
+    document.addEventListener('click', handler, true)
+    this._cleanups.push(() => document.removeEventListener('click', handler, true))
 
     // Find the button reference for ARIA sync (best-effort, deferred to allow DOM to parse)
     queueMicrotask(() => {
