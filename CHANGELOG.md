@@ -5,6 +5,12 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.7.0] - 2025
+
+### Added
+
+- `<st-dialog>` — Modal and non-modal dialog component built on the native `<dialog>` element. The native element handles focus trapping, escape-to-close, top-layer rendering, and the backdrop. `st-dialog` adds declarative trigger discovery via `data-dialog-trigger`, easy programmatic open/close, light-dismiss on backdrop click (opt-out via `data-st-dialog-no-light-dismiss`), and lifecycle events (`st-dialog:open`, `st-dialog:close`). Works seamlessly with `<form method="dialog">` for cancel/confirm patterns.
+
 ## [0.6.0] - 2025
 
 ### Added

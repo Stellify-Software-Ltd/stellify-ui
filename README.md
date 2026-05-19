@@ -54,8 +54,9 @@ All three share `base.css` for structural tokens (spacing, radii, motion, typogr
 - `<st-checkbox>` — accessible checkbox primitive
 - `<st-menu>` — dropdown/popup menu primitive with keyboard navigation
 - `<st-frame>` — independently-updating subview: links and forms fetch and swap content without full page reload
+- `<st-dialog>` — modal and non-modal dialog built on native `<dialog>` with trigger integration and light dismiss
 
-More components ship as Stellify's surface area grows. The architecture supports `<st-dialog>`, `<st-toggle>`, `<st-table>` etc. on the same model.
+More components ship as Stellify's surface area grows. The architecture supports `<st-toggle>`, `<st-table>` etc. on the same model.
 
 ### st-sidebar
 
@@ -273,6 +274,105 @@ The component plays nicely with browser navigation. Clicking the back button res
 #### No-JavaScript fallback
 
 If JavaScript is disabled or hasn't loaded yet, links and forms inside the frame work as normal navigation — full page reloads. The frame degrades gracefully; nothing breaks.
+
+### st-dialog
+
+A modal or non-modal dialog component built on the native `<dialog>` element. The native element handles focus trapping, escape-to-close, top-layer rendering, and the backdrop. `st-dialog` adds trigger integration, light dismiss, and event hooks.
+
+```html
+<button type="button" data-dialog-trigger="confirm-delete">
+  Delete account
+</button>
+
+<st-dialog id="confirm-delete">
+  <h2 class="text-lg font-semibold">Delete your account?</h2>
+  <p class="mt-2 text-sm text-muted-foreground">
+    This action cannot be undone.
+  </p>
+
+  <form method="dialog" class="mt-4 flex justify-end gap-2">
+    <button type="submit" value="cancel" class="rounded-md border px-3 py-1.5 text-sm">
+      Cancel
+    </button>
+    <button type="submit" value="confirm" class="rounded-md bg-destructive px-3 py-1.5 text-sm text-destructive-foreground">
+      Delete
+    </button>
+  </form>
+</st-dialog>
+```
+
+#### Triggers
+
+Any element with `data-dialog-trigger="<dialog-id>"` opens the dialog when clicked. Triggers are discovered automatically on connection. Multiple triggers can target the same dialog.
+
+By default, dialogs open as modals (blocking, with backdrop). To open non-modal, add `data-dialog-modal="false"` to the trigger.
+
+#### Form integration
+
+Use `<form method="dialog">` inside the dialog to handle Cancel / Confirm patterns. Submitting the form closes the dialog automatically; the submitter button's `value` is exposed as the dialog's return value:
+
+```ts
+const dialog = document.getElementById('confirm-delete')
+dialog.addEventListener('st-dialog:close', (e) => {
+  if (e.detail.returnValue === 'confirm') {
+    // perform action
+  }
+})
+```
+
+For regular forms (POST to a server), the form submits normally; close the dialog manually after success if desired.
+
+#### Programmatic API
+
+```ts
+const dialog = document.getElementById('my-dialog') as StDialog
+
+dialog.open()                  // Open as modal
+dialog.openNonModal()          // Open as non-modal
+dialog.close()                 // Close without return value
+dialog.close('confirmed')      // Close with return value
+dialog.isOpen                  // Check open state
+```
+
+#### Light dismiss
+
+By default, clicking outside the dialog (on the backdrop) closes it. To disable for critical dialogs:
+
+```html
+<st-dialog id="x" data-st-dialog-no-light-dismiss>
+  …
+</st-dialog>
+```
+
+#### Events
+
+All events bubble.
+
+- `st-dialog:open` — Fired after the dialog opens. Detail: `{ modal: boolean }`.
+- `st-dialog:close` — Fired after the dialog closes. Detail: `{ returnValue: string }`.
+
+#### Styling
+
+Default styling matches the shadcn popover aesthetic — bordered, rounded, padded, with a subtle backdrop and entrance animation. Override on the inner `<dialog>` element or via global CSS:
+
+```css
+st-dialog dialog {
+  max-width: 28rem;
+  padding: 2rem;
+}
+```
+
+For full control, write your `<dialog>` element explicitly inside the `<st-dialog>`:
+
+```html
+<st-dialog id="custom">
+  <dialog class="my-custom-dialog">
+    <!-- your styling, your structure -->
+  </dialog>
+</st-dialog>
+```
+
+The component uses your `<dialog>` instead of auto-wrapping.
 
 ## Laravel Blade integration
 
