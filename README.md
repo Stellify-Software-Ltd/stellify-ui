@@ -102,9 +102,8 @@ A collapsible navigation sidebar component. Manages expanded / rail (icon-only) 
 
 The component recognises a few conventional class names on descendants:
 
-- `.nav-item` — Navigation entries (anchors, buttons). In rail mode their text labels hide and their icons centre. The component also uses this class for arrow-key navigation.
+- `.nav-item` — Navigation entries (anchors, buttons). In rail mode their text labels hide and their icons centre. The component also uses this class for arrow-key navigation. **The icon must be the first child** — everything after it collapses in rail mode.
 - `.nav-section-label` — Section headings like "Platform" or "Settings". Hidden in rail mode.
-- `.nav-icon` (optional) — Wrap a non-`<svg>` non-`<img>` icon (e.g. an inline span with a background image) with this class so it's treated as an icon in rail mode.
 
 #### Surface appearance
 

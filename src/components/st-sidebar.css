@@ -28,8 +28,8 @@ st-sidebar[data-state="rail"] .nav-item {
 }
 
 /* Hide any non-icon child of a nav-item in rail mode.
-   "Icon" is defined as svg, img, or an explicit .nav-icon container. */
-st-sidebar[data-state="rail"] .nav-item > *:not(svg):not(img):not(.nav-icon) {
+   Icon must be the first child; everything after it collapses. */
+st-sidebar[data-state="rail"] .nav-item > *:not(:first-child) {
   display: none;
 }
 
@@ -44,9 +44,7 @@ st-sidebar[data-state="rail"] [data-menu-trigger] > *:not(:first-child) {
 }
 
 /* Prevent icon shrinkage during transition */
-st-sidebar .nav-item > svg,
-st-sidebar .nav-item > img,
-st-sidebar .nav-item > .nav-icon,
+st-sidebar .nav-item > :first-child,
 st-sidebar [data-menu-trigger] > :first-child {
   flex-shrink: 0;
 }
