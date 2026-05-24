@@ -35,4 +35,9 @@
   --st-font-display:     ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
   --st-font-ui:          ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
   --st-font-mono:        ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, monospace;
+
+  /* shadcn-compatible aliases for Tailwind utilities (bg-popover, text-popover-foreground, etc.) */
+  --popover:             hsl(240 10% 3.9%);
+  --popover-foreground:  hsl(0 0% 98%);
+  --border:              hsl(240 3.7% 15.9%);
 }

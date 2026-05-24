@@ -36,6 +36,11 @@
   --st-font-display:     'Fraunces', Georgia, serif;
   --st-font-ui:          'Geist', -apple-system, BlinkMacSystemFont, sans-serif;
   --st-font-mono:        'Geist Mono', ui-monospace, monospace;
+
+  /* shadcn-compatible aliases for Tailwind utilities */
+  --popover:             #ffffff;
+  --popover-foreground:  #1a1612;
+  --border:              #d8d2c2;
 }
 
 .dark {
@@ -64,4 +69,9 @@
   --st-rule-faint:       #181410;
 
   --st-focus-ring:       rgba(240, 235, 223, 0.28);
+
+  /* shadcn-compatible aliases for Tailwind utilities */
+  --popover:             #1a1612;
+  --popover-foreground:  #f0ebdf;
+  --border:              #2a241c;
 }

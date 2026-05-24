@@ -37,6 +37,11 @@
   --st-font-display:     -apple-system, BlinkMacSystemFont, "Segoe UI", system-ui, sans-serif;
   --st-font-ui:          -apple-system, BlinkMacSystemFont, "Segoe UI", system-ui, sans-serif;
   --st-font-mono:        ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, monospace;
+
+  /* shadcn-compatible aliases for Tailwind utilities */
+  --popover:             #ffffff;
+  --popover-foreground:  #18181b;
+  --border:              #e4e4e7;
 }
 
 .dark {
@@ -65,4 +70,9 @@
   --st-rule-faint:       #18181b;
 
   --st-focus-ring:       rgba(250, 250, 250, 0.3);
+
+  /* shadcn-compatible aliases for Tailwind utilities */
+  --popover:             #18181b;
+  --popover-foreground:  #fafafa;
+  --border:              #27272a;
 }
