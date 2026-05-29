@@ -17,6 +17,7 @@ import './components/st-checkbox.js'
 import './components/st-menu.js'
 import './components/st-frame.js'
 import './components/st-dialog.js'
+import './components/st-theme-switcher.js'
 
 // Re-export classes for advanced consumers
 export { StSidebar } from './components/st-sidebar.js'
@@ -26,6 +27,7 @@ export { StCheckbox } from './components/st-checkbox.js'
 export { StMenu } from './components/st-menu.js'
 export { StFrame } from './components/st-frame.js'
 export { StDialog } from './components/st-dialog.js'
+export { StThemeSwitcher } from './components/st-theme-switcher.js'
 
 // Re-export primitives for consumers building their own components
 export { persistedState } from './primitives/persisted-state.js'

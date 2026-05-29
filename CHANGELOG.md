@@ -5,6 +5,14 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.9.0] - 2025
+
+### Added
+
+- `<st-theme-switcher>` — Light/dark/system theme switcher component. Manages the `.dark` class on `<html>` based on user preference or OS setting. Wraps buttons with `data-theme="light|dark|system"` attributes. Persists choice to localStorage (`stellify.theme`). Syncs state across multiple instances on the same page. Fires `st-theme-switcher:change` events with `{ theme, resolvedTheme }` detail.
+
+- Theme initialization script (`src/theme-init.js`) — Paste-into-head IIFE that applies the saved theme synchronously before page render, preventing flash of wrong theme. See the file for minified and expanded versions.
+
 ## [0.8.0] - 2025
 
 ### Changed

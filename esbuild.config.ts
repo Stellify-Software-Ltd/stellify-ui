@@ -17,9 +17,6 @@ const buildOptions: BuildOptions = {
 
 const cssFiles = [
   'src/tokens/base.css',
-  'src/tokens/themes/shadcn.css',
-  'src/tokens/themes/editorial.css',
-  'src/tokens/themes/neutral.css',
   'src/components/st-sidebar.css',
   'src/components/st-frame.css',
   'src/components/st-dialog.css',
