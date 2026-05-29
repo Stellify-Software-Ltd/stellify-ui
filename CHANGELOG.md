@@ -5,6 +5,24 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.8.0] - 2025
+
+### Changed
+
+- **BREAKING:** Removed theme token files (`tokens/shadcn.css`, `tokens/editorial.css`, `tokens/neutral.css`). Surface styling (background, text colour, borders) is now the consumer's responsibility via Tailwind utilities or custom CSS. Components are now purely structural primitives.
+
+- **BREAKING:** `<st-dialog>` no longer applies `background`, `color`, `border`, `border-radius`, `padding`, `box-shadow`, or `backdrop` styles. Apply all surface styling via classes on the `<dialog>` element (e.g. `bg-popover text-popover-foreground border rounded-lg p-6 shadow-xl`).
+
+### Removed
+
+- `--st-bg-*`, `--st-fg-*`, `--st-rule*`, `--st-action*`, `--st-positive`, `--st-negative`, `--st-focus-ring`, and `--st-font-*` tokens. Use your app's existing design tokens or Tailwind utilities instead.
+
+## [0.7.4] - 2025
+
+### Fixed
+
+- Added `--popover`, `--popover-foreground`, and `--border` aliases to `tokens/shadcn.css` for Tailwind compatibility with `bg-popover`, `text-popover-foreground`, and `border` utilities.
+
 ## [0.7.3] - 2025
 
 ### Fixed
