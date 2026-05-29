@@ -112,8 +112,10 @@ export class StThemeSwitcher extends HTMLElement {
         this._setTheme(theme)
       }
     }
-    this.addEventListener('click', handler)
-    this._cleanups.push(() => this.removeEventListener('click', handler))
+    // Use capture phase to ensure we receive the event even if something
+    // else calls stopPropagation() during bubble phase
+    this.addEventListener('click', handler, true)
+    this._cleanups.push(() => this.removeEventListener('click', handler, true))
   }
 
   private _initCrossInstanceSync() {
