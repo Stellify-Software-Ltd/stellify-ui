@@ -55,6 +55,8 @@ All three share `base.css` for structural tokens (spacing, radii, motion, typogr
 - `<st-menu>` — dropdown/popup menu primitive with keyboard navigation
 - `<st-frame>` — independently-updating subview: links and forms fetch and swap content without full page reload
 - `<st-dialog>` — modal and non-modal dialog built on native `<dialog>` with trigger integration and light dismiss
+- `<st-disclosure>` — inline show/hide of a content section, triggered by a button; not modal
+- `<st-passkey-register>` — orchestrates WebAuthn passkey registration: intercepts form submission, fetches options, triggers browser passkey UI, posts credential to server
 
 More components ship as Stellify's surface area grows. The architecture supports `<st-toggle>`, `<st-table>` etc. on the same model.
 
@@ -372,6 +374,110 @@ For full control, write your `<dialog>` element explicitly inside the `<st-dialo
 ```
 
 The component uses your `<dialog>` instead of auto-wrapping.
+
+### st-disclosure
+
+Inline show/hide of a content section, triggered by a button. Use for inline forms, expandable details, edit-in-place patterns, and other "reveal more" interactions. Unlike `st-dialog`, this is not modal — the rest of the page stays interactive.
+
+```html
+<st-disclosure>
+  <button type="button" data-disclosure-trigger>Edit profile</button>
+  <div data-disclosure-content hidden>
+    <!-- form, settings, anything -->
+    <button type="button" data-disclosure-close>Cancel</button>
+  </div>
+</st-disclosure>
+```
+
+#### Class hooks
+
+- `[data-disclosure-trigger]` — The button that opens the disclosure. Required.
+- `[data-disclosure-content]` — The element that's shown when the disclosure is open. Should start with `hidden` attribute. Required.
+- `[data-disclosure-close]` — Any element inside the content that, when clicked, closes the disclosure. Optional.
+
+#### Attributes
+
+- `data-open-by-default` (optional) — If set on the `<st-disclosure>` element, the disclosure starts open instead of closed.
+
+#### Programmatic API
+
+```ts
+const disclosure = document.querySelector('st-disclosure') as StDisclosure
+
+disclosure.open()
+disclosure.close()
+disclosure.toggle()
+disclosure.isOpen  // boolean
+```
+
+#### Events
+
+- `st-disclosure:open` — Fired after the disclosure opens. Bubbles.
+- `st-disclosure:close` — Fired after the disclosure closes. Bubbles.
+
+#### Keyboard
+
+- **Escape** — Closes the disclosure if open.
+- **Tab** — Native focus navigation; the disclosure does not trap focus.
+
+#### Comparison to `st-dialog`
+
+| Aspect | `st-disclosure` | `st-dialog` |
+|--------|-----------------|-------------|
+| Renders | Inline, in document flow | Top layer (modal) |
+| Backdrop | None | Yes (modal mode) |
+| Focus trap | No | Yes |
+| Page interactive | Yes, fully | No (modal blocks) |
+| Use for | Inline forms, expanding sections | Confirmations, focused tasks |
+
+Use `st-disclosure` when the content is part of the page and the user might want to keep interacting with surrounding context. Use `st-dialog` when the content demands focus and the rest of the page should be blocked.
+
+### st-passkey-register
+
+Orchestrates WebAuthn passkey registration. Wraps a standard form; intercepts submission to trigger the browser's passkey UI and handle the credential exchange with your server.
+
+```html
+<st-passkey-register
+  options-endpoint="/passkeys/register/options"
+  store-endpoint="/passkeys/register">
+
+  <form>
+    <input type="text" name="name" required placeholder="Passkey name">
+    <button type="submit">Register passkey</button>
+    <p data-passkey-error class="text-sm text-destructive" hidden></p>
+  </form>
+
+</st-passkey-register>
+```
+
+#### Attributes
+
+- `options-endpoint` (required) — URL where the component POSTs initial form data to fetch WebAuthn registration options.
+- `store-endpoint` (required) — URL where the component POSTs the resulting credential plus form data.
+
+#### Class hooks
+
+- `[data-passkey-error]` (optional) — Element used to display error messages. If absent, errors go to console only.
+
+#### Server contract
+
+The component expects the server to:
+
+1. **Options endpoint** receives form data, returns WebAuthn `PublicKeyCredentialCreationOptions` as JSON. `challenge`, `user.id`, and any `excludeCredentials[].id` should be base64url-encoded.
+2. **Store endpoint** receives the credential plus form data, verifies the attestation, stores the credential, returns 2xx on success.
+
+In Laravel, this is straightforward with the `web-auth/webauthn-lib` package or `claudiodekker/laravel-auth`. See the starter kit for a working example.
+
+#### Events
+
+- `st-passkey-register:start` — Registration began.
+- `st-passkey-register:success` — Credential stored successfully. Detail: `{ response }`.
+- `st-passkey-register:error` — Failure at any stage. Detail: `{ stage, error }`.
+- `st-passkey-register:cancel` — User cancelled the browser passkey UI.
+
+#### Browser support
+
+WebAuthn is supported in all modern browsers (Chrome 67+, Safari 14+, Firefox 60+, Edge 18+). If the API is unavailable, the component disables the submit button on initialisation.
 
 ## Laravel Blade integration
 

@@ -18,6 +18,8 @@ import './components/st-menu.js'
 import './components/st-frame.js'
 import './components/st-dialog.js'
 import './components/st-theme-switcher.js'
+import './components/st-disclosure.js'
+import './components/st-passkey-register.js'
 
 // Re-export classes for advanced consumers
 export { StSidebar } from './components/st-sidebar.js'
@@ -28,6 +30,8 @@ export { StMenu } from './components/st-menu.js'
 export { StFrame } from './components/st-frame.js'
 export { StDialog } from './components/st-dialog.js'
 export { StThemeSwitcher } from './components/st-theme-switcher.js'
+export { StDisclosure } from './components/st-disclosure.js'
+export { StPasskeyRegister } from './components/st-passkey-register.js'
 
 // Re-export primitives for consumers building their own components
 export { persistedState } from './primitives/persisted-state.js'

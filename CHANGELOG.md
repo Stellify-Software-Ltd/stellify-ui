@@ -5,6 +5,18 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.11.0] - 2025
+
+### Added
+
+- `<st-passkey-register>` — Orchestrates WebAuthn passkey registration. Wraps a standard HTML form; intercepts submission to fetch WebAuthn registration options from the server, triggers `navigator.credentials.create()` to invoke the browser's passkey UI, then posts the resulting credential to the server. Features: browser support detection (disables submit button if WebAuthn unavailable), CSRF token handling (reads from meta tag or form field), base64url encoding/decoding for WebAuthn data, loading state management (`data-loading` attribute), error display via `[data-passkey-error]` element, and events (`st-passkey-register:start`, `st-passkey-register:success`, `st-passkey-register:error`, `st-passkey-register:cancel`). Programmatic API: `register()` method to trigger registration flow.
+
+## [0.10.0] - 2025
+
+### Added
+
+- `<st-disclosure>` — Inline show/hide of a content section, triggered by a button. Use for inline forms, expandable details, edit-in-place patterns, and other "reveal more" interactions. Unlike `st-dialog`, this is not modal — the rest of the page stays interactive. Features: trigger/content discovery via `data-disclosure-trigger` and `data-disclosure-content` attributes, close buttons via `data-disclosure-close`, Escape key to close, programmatic API (`open()`, `close()`, `toggle()`, `isOpen`), events (`st-disclosure:open`, `st-disclosure:close`), and focus management on open/close.
+
 ## [0.9.1] - 2025
 
 ### Fixed
